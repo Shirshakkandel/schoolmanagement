@@ -6,6 +6,7 @@ import Sidebar from './components/Sidebar';
 import {BrowserRouter,Route, Switch } from 'react-router-dom'
 import AddNewBook from './Pages/Library/AddNewBook';
 import BookList from './Pages/Library/BookList';
+import AllStudent from './Pages/Student/AllStudent';
 
 function App() {
   const [open, setOpen] = useState(false);
@@ -36,7 +37,6 @@ function App() {
     <BrowserRouter>
    
     <div className="bg-gray-50 ">
-      
       {/* Header */}
       <Header open={open} setOpen={setOpen} width={useWindowSize()}/>
       {/* Sidebar */}
@@ -51,20 +51,18 @@ function App() {
 
             <Route path="/addNewBook">  
               <AddNewBook title="Library" subTitle="Add New Book" open={open} width={useWindowSize()} />
-          </Route>
+            </Route>
           
-          <Route path="/bookList">
-            <BookList title="Library" subTitle="All Books" open={open} width={useWindowSize()} />
+            {/* <Route path="/bookList">
+              <BookList title="Library" subTitle="All Books" open={open} width={useWindowSize()} />
+            </Route> */}
+
+          <Route path="/admissionForm">
+          <AllStudent/>
           </Route>
+
 
           </Switch>
-
-    
-        
-
-         
-        
-
         </div>
      
     

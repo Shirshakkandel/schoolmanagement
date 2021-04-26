@@ -1,6 +1,6 @@
 {
   "name": "schoolmanagement",
-  "proxy":"http://127.0.0.1:3000/",
+  "proxy":"http://dbschoolmanagement-env.eba-k8dwg2cj.us-east-2.elasticbeanstalk.com/",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
