@@ -240,9 +240,10 @@ function Sidebar({ open, setOpen, width }) {
   return (
     // Cardshadow
     <Side
-      className={`shadow fixed z-50  left-0 top-0 h-full  w-${
+      className={`shadow fixed z-40  left-0 top-0 h-full  w-${
         open && width < 1024 ? 'full' : 0
       } `}
+      // onClick={() => setOpen(false)}
       onClick={exitDetailHander}
     >
       {/* Sidebar */}

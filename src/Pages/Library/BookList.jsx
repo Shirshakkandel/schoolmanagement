@@ -1,12 +1,13 @@
-import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import styled from 'styled-components/macro'
+import json from '../../db.json'
 
 function BookList({ width, open, title, subTitle }) {
   const [bookData, setBookData] = useState([])
   const [q, setQ] = useState('')
   const [searchColumns, setSearchColumn] = useState(['BookName', 'Writer'])
   const columns = bookData[0] && Object.keys(bookData[0])
+  const data = json.books
 
   const searchHandler = () => {}
   function search(rows) {
@@ -20,20 +21,20 @@ function BookList({ width, open, title, subTitle }) {
     )
   }
 
-  useEffect(() => {
-    // async function fetchBookData() {
-    //   let { data } = await axios.get('/books')
-    //   setBookData(data)
-    //   console.log(data)
-    // }
+  // useEffect(() => {
+  //   // async function fetchBookData() {
+  //   //   let { data } = await axios.get('/books')
+  //   //   setBookData(data)
+  //   //   console.log(data)
+  //   // }
 
-    async function fetchBookData() {
-      let response = await fetch('/books/')
-      let json = await response.json()
-      setBookData(json)
-    }
-    fetchBookData()
-  }, [])
+  //   async function fetchBookData() {
+  //     let response = await fetch('/books/')
+  //     let json = await response.json()
+  //     setBookData(json)
+  //   }
+  //   fetchBookData()
+  // }, [])
 
   return (
     <BookListStyle
@@ -48,27 +49,7 @@ function BookList({ width, open, title, subTitle }) {
         Home <span className="text-yellow-600"> &gt; {subTitle}</span>
       </div>
 
-      {/* <div>
-        <input type="text" value={q} onChange={(e) => setQ(e.target.value)} />
-        {columns &&
-          columns.map((column) => (
-            <label>
-              <input
-                type="checkbox"
-                checked={searchColumns.includes(column)}
-                onChange={(e) => {
-                  const checked = searchColumns.includes(column)
-                  setSearchColumn((prev) =>
-                    checked
-                      ? prev.filter((sc) => sc !== column)
-                      : [...prev, column]
-                  )
-                }}
-              />
-              {column}
-            </label>
-          ))}
-      </div> */}
+ 
 
       <div className="searchbox flex flex-col  p-4 md:flex-row  justify-evenly ">
         <input
@@ -123,7 +104,7 @@ function BookList({ width, open, title, subTitle }) {
           </thead>
 
           <tbody>
-            {bookData.map(
+            {data.map(
               ({
                 id,
                 BookName,

@@ -1,0 +1,9 @@
+1:35
+searching and filtering in react table
+data and q 
+useEffect  fetch().then(response=> response.json()
+<Datatable data= {data} />
+
+index.js
+
+const columns= Object.keys(data[0]) return array which contains  keys value 

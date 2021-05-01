@@ -3,7 +3,6 @@ import { BsFillBarChartFill } from 'react-icons/bs'
 import { FiUsers } from 'react-icons/fi'
 import { CgArrowsVAlt } from 'react-icons/cg'
 import { FaCartArrowDown, FaMoneyBillAlt } from 'react-icons/fa'
-import { CircularProgressbar } from 'react-circular-progressbar'
 
 import Chart from 'react-apexcharts'
 import styled from 'styled-components/macro'

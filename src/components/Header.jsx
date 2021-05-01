@@ -42,7 +42,6 @@ function Header({ open, setOpen, width }) {
           e.target === adminIconRef.current ||
           e.target === adminNameRef.current) &&
         setAdminDropDown(false)
-      console.log(adminImgRef.current)
     }
 
     document.addEventListener('click', close)
@@ -123,14 +122,14 @@ function Header({ open, setOpen, width }) {
                 <h3 ref={adminNameRef} className="font-bold ">
                   Shirshak kandel
                 </h3>
-                <p ref={adminTitleRef} rclassName="ml-auto font-light">
+                <p ref={adminTitleRef} className="ml-auto font-light">
                   Admin
                 </p>
               </div>
             </div>
 
-            <div className="dropdown font-light">
-              <IoMdArrowDropdown ref={adminIconRef} />
+            <div className="dropdown font-light" ref={adminIconRef}>
+              <IoMdArrowDropdown />
             </div>
 
             <div className="adminImage ">

@@ -7,6 +7,8 @@ import {BrowserRouter,Route, Switch } from 'react-router-dom'
 import AddNewBook from './Pages/Library/AddNewBook';
 import BookList from './Pages/Library/BookList';
 import AllStudent from './Pages/Student/AllStudent';
+import { AddNewStudent } from './Pages/Student/AddNewStudent';
+import AddNewTeacher from './Pages/Teacher/AddNewTeacher';
 
 function App() {
   const [open, setOpen] = useState(false);
@@ -53,12 +55,20 @@ function App() {
               <AddNewBook title="Library" subTitle="Add New Book" open={open} width={useWindowSize()} />
             </Route>
           
-            {/* <Route path="/bookList">
+            <Route path="/bookList">
               <BookList title="Library" subTitle="All Books" open={open} width={useWindowSize()} />
-            </Route> */}
+            </Route>
 
           <Route path="/admissionForm">
-          <AllStudent/>
+            <AddNewStudent title="Students" subTitle="Student Admit Form" open={open} width={useWindowSize()}/>
+          </Route>
+
+          <Route path="/studentslist">
+            <AllStudent title="Students" subTitle="All Student List" open={open} width={useWindowSize()} />
+          </Route>
+
+           <Route path="/addteacher">
+            <AddNewTeacher title="Teacher" subTitle="Add Teacher" open={open} width={useWindowSize()} />
           </Route>
 
 
