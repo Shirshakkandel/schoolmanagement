@@ -406,9 +406,10 @@ export const AddNewStudent = ({ title, subTitle, open, width }) => {
 
     if (!newStudent.gender.trim()) {
       errors.gender = 'Please Select Gender'
-    } else if (newStudent.gender !== ('Male' || 'Female' || 'Other')) {
-      errors.gender = 'Please provide valid gender'
     }
+    // else if (newStudent.gender !== ('Male' || 'Female' || 'Other')) {
+    //   errors.gender = 'Please provide valid gender'
+    // }
 
     if (!newStudent.dob.trim()) {
       errors.dob = 'Please enter dob'
@@ -424,11 +425,12 @@ export const AddNewStudent = ({ title, subTitle, open, width }) => {
 
     if (!newStudent.bloodGroup.trim()) {
       errors.bloodGroup = 'Blood Group needed'
-    } else if (
-      newStudent.bloodGroup !== ('A+' || 'A-' || 'B+' || 'B-', 'O+', 'O-')
-    ) {
-      errors.bloodGroup = 'Provide valid Blood Group'
     }
+    // else if (
+    //   newStudent.bloodGroup !== ('A+' || 'A-' || 'B+' || 'B-' || 'O+' || 'O-')
+    // ) {
+    //   errors.bloodGroup = 'Provide valid Blood Group'
+    // }
 
     if (!newStudent.address.trim()) {
       errors.address = 'Plese enter Address'
