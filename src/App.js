@@ -9,6 +9,7 @@ import BookList from './Pages/Library/BookList';
 import AllStudent from './Pages/Student/AllStudent';
 import { AddNewStudent } from './Pages/Student/AddNewStudent';
 import AddNewTeacher from './Pages/Teacher/AddNewTeacher';
+import StudentDetails from './Pages/Student/StudentDetails';
 
 function App() {
   const [open, setOpen] = useState(false);
@@ -59,8 +60,11 @@ function App() {
               <BookList title="Library" subTitle="All Books" open={open} width={useWindowSize()} />
             </Route>
 
-          <Route path="/admissionForm">
+          <Route path="/admissionForm/">
             <AddNewStudent title="Students" subTitle="Student Admit Form" open={open} width={useWindowSize()}/>
+          </Route>
+          <Route path="/studentdetails/:id">
+            <StudentDetails title="Students" subTitle="Student Detail" open={open} width={useWindowSize()}/>
           </Route>
 
           <Route path="/studentslist">

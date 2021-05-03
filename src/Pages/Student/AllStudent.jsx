@@ -154,7 +154,9 @@ export default function AllStudent({ width, open, title, subTitle }) {
 
 function DataTable({ data, width, deleteStudent }) {
   let history = useHistory()
-  async function detailView(id) {}
+  async function detailView(id) {
+    history.push(`/studentdetails/${id}`)
+  }
   return (
     <TableStyle width={width}>
       <thead>

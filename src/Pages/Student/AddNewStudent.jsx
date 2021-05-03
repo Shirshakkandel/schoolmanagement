@@ -7,8 +7,8 @@ export const AddNewStudent = ({ title, subTitle, open, width }) => {
     bloodGroup: '',
     caste: '',
     contactNumber: '',
-    dataOfAdmission: '',
-    dataOfLeave: '',
+    dateOfAdmission: '',
+    dateOfLeave: '',
     disable: Boolean(false),
     disibilityName: '',
     discountAmount: '',
@@ -42,8 +42,8 @@ export const AddNewStudent = ({ title, subTitle, open, width }) => {
     bloodGroup: '',
     caste: '',
     contactNumber: '',
-    dataOfAdmission: '',
-    dataOfLeave: '',
+    dateOfAdmission: '',
+    dateOfLeave: '',
     disibilityName: '',
     discountAmount: '',
     discountRate: '',
@@ -71,16 +71,16 @@ export const AddNewStudent = ({ title, subTitle, open, width }) => {
     totalAmountFee: '',
     totalPaidFee: '',
   }
-  const [disabled, setDisabled] = useState(null)
-  useEffect(() => {
-    if (newStudent.disable === 'true') {
-      newStudent.disable = true
-      setDisabled('')
-    } else {
-      newStudent.disable = false
-      setDisabled('disabled')
-    }
-  }, [newStudent.disable])
+  // const [disabled, setDisabled] = useState(null)
+  // useEffect(() => {
+  //   if (newStudent.disable === 'true') {
+  //     newStudent.disable = true
+  //     setDisabled('')
+  //   } else {
+  //     newStudent.disable = false
+  //     setDisabled('disabled')
+  //   }
+  // }, [newStudent.disable])
 
   const [errors, setErrors] = useState({})
   const [message, setMessage] = useState('')
@@ -317,13 +317,12 @@ export const AddNewStudent = ({ title, subTitle, open, width }) => {
       value: newStudent.disibilityName,
       name: 'disibilityName',
       type: 'text',
-      disabled,
     },
     {
       id: 20,
       label: 'Date of Admission *',
-      value: newStudent.dataOfAdmission,
-      name: 'dataOfAdmission',
+      value: newStudent.dateOfAdmission,
+      name: 'dateOfAdmission',
       type: 'date',
     },
     {
@@ -342,8 +341,8 @@ export const AddNewStudent = ({ title, subTitle, open, width }) => {
     {
       id: 21,
       label: 'Date of leave',
-      value: newStudent.dataOfLeave,
-      name: 'dataOfLeave',
+      value: newStudent.dateOfLeave,
+      name: 'dateOfLeave',
       type: 'date',
     },
     {
@@ -482,6 +481,8 @@ export const AddNewStudent = ({ title, subTitle, open, width }) => {
       if (data) {
         setMessage('form  submitted')
         setNewStudent(resetStudentField)
+      } else {
+        setMessage('Student detail not submitted')
       }
     } catch (err) {
       setMessage('Network error')
@@ -556,7 +557,6 @@ export const SingleFormGroup = ({
   type,
   onChange,
   errors,
-  disabled,
 }) => {
   return !options ? (
     <div key={id} className="group flex flex-col">
