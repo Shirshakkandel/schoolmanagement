@@ -122,8 +122,8 @@ function Sidebar({ open, setOpen, width }) {
       subMenu: [
         {
           id: 1,
-          title: 'Parents Details',
-          to: '/parentdetail',
+          title: 'All Parents',
+          to: '/allParents',
           side: <MdKeyboardArrowRight />,
         },
         {

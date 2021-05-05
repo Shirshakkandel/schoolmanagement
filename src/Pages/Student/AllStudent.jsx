@@ -123,21 +123,6 @@ export default function AllStudent({ width, open, title, subTitle }) {
             }}
           />
         </div>
-
-        {/* q and setQ pass as query and setQuery */}
-        {/* <Dropdown
-          options={data}
-          prompt="Select Grade"
-          value={value}
-          id="id"
-          label="label"
-          query={q}
-          setQuery={setQ}
-          onChange={(val) => {
-            setValue(val)
-            setQ(val.toString())
-          }}
-        /> */}
       </div>
 
       <div className="overflow-x-auto mb-6">
@@ -218,7 +203,12 @@ function DataTable({ data, width, deleteStudent }) {
                 >
                   Details
                 </span>
-                <span className="hover:text-gray-800 pr-1">Update</span>
+                <span
+                  className="hover:text-gray-800 pr-1"
+                  onClick={() => history.push(`updateStudentForm/${id}`)}
+                >
+                  Update
+                </span>
                 <div
                   className="hover:text-red-500 pr-1 mt-1"
                   onClick={() => deleteStudent(id)}
@@ -240,7 +230,6 @@ const AllStudentStyle = styled.div`
     border-spacing: 0;
     width: 100%;
     table-layout: ${(p) => (p.width <= 1024 ? 'fixed' : '')};
-
     border: 1px solid #ddd;
 
     th,

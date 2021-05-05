@@ -10,9 +10,13 @@ import AllStudent from './Pages/Student/AllStudent';
 import { AddNewStudent } from './Pages/Student/AddNewStudent';
 import AddNewTeacher from './Pages/Teacher/AddNewTeacher';
 import StudentDetails from './Pages/Student/StudentDetails';
+import UpdateStudent from './Pages/Student/UpdateStudent';
+import AddParent from './Pages/Parent/AddParent';
+import AllParent from './Pages/Parent/AllParent';
 
 function App() {
   const [open, setOpen] = useState(false);
+ 
 
   //Automatic window size listner
   function useWindowSize() {
@@ -63,6 +67,11 @@ function App() {
           <Route path="/admissionForm/">
             <AddNewStudent title="Students" subTitle="Student Admit Form" open={open} width={useWindowSize()}/>
           </Route>
+
+          <Route path="/updateStudentForm/:id">
+            <UpdateStudent title="Student" subTitle="Student Update Form " open={open}/>
+          </Route>
+
           <Route path="/studentdetails/:id">
             <StudentDetails title="Students" subTitle="Student Detail" open={open} width={useWindowSize()}/>
           </Route>
@@ -73,6 +82,14 @@ function App() {
 
            <Route path="/addteacher">
             <AddNewTeacher title="Teacher" subTitle="Add Teacher" open={open} width={useWindowSize()} />
+          </Route>
+
+           <Route path="/addParent">
+            <AddParent title="Parent" subTitle="Add Parent" open={open} width={useWindowSize()} />
+          </Route>
+          
+          <Route path="/allParents">
+            <AllParent title="Parent" subTitle="All Parent" open={open} width={useWindowSize()} />
           </Route>
 
 
