@@ -21,7 +21,9 @@ function FormInput({
       </label>
       <input
         id={id}
-        className="h-10 mb-2 outline-none bg-gray-300 p-2"
+        className={`h-10 mb-2 outline-none bg-gray-300 p-2 ${
+          errors && 'border-red-500 border-2'
+        } `}
         placeholder={placeholder}
         type={type}
         name={name}
@@ -29,7 +31,7 @@ function FormInput({
         onChange={onChange}
       />
 
-      {errors && <p className=" text-red-500">{errors}</p>}
+      {errors && <p className="ml-1 font-semibold text-red-500">{errors}</p>}
     </div>
   )
 }

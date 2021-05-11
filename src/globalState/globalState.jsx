@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react'
 
-export function useOpen() {
+function useOpen() {
   const [open, setOpen] = useState(false)
   return [open, setOpen]
 }
 
-export function useWindowSize() {
+function useWindowSize() {
   const [width, setWidth] = useState(window.innerWidth)
 
   useEffect(() => {
@@ -21,3 +21,10 @@ export function useWindowSize() {
   }, [width])
   return width
 }
+
+function useLoading() {
+  const [loading, setLoading] = React.useState(true)
+  return [loading, setLoading]
+}
+
+export { useLoading, useWindowSize, useOpen }

@@ -1,36 +1,49 @@
 import React from 'react'
-import styled from 'styled-components'
 
-function Model({ heading, setDeletePopup, setDeleteAction }) {
+export default function PopupMessage({
+  message,
+  handleClose,
+  action,
+  cancel,
+  clear,
+}) {
   return (
-    <ModelStyle
-      className="popup fixed top-0 left-0 w-full h-full bg-black opacity-80 grid  place-items-center transition-all "
-      onClick={() => setDeletePopup(false)}
-    >
-      <div className="popup-inner relative p-9 w-full max-w-sm bg-white text-black z-50 ">
-        <button
-          className="close-btn absolute top-2 right-2"
-          onClick={() => setDeletePopup(false)}
+    <div className="fixed left-0 top-0 min-h-screen w-screen  grid place-items-center z-40">
+      <div
+        className="fixed bg-black bg-opacity-50 left-0 top-0 h-screen w-screen z-40"
+        onClick={() => {
+          clear && clear()
+          handleClose()
+        }}
+      ></div>
+      <div className="bg-white p-4 rounded z-50 opacity-100">
+        <div>{message}</div>
+        <div
+          className={`${
+            !cancel && 'flex flex-1 justify-center'
+          } m-2 text-right space-x-2`}
         >
-          close
-        </button>
-        <div className="heading">{heading}</div>
-        <div className="action absolute bottom-2 right-2">
-          <button
+          <div
+            className={`inline-block  bg-red-500 h-10 leading-10 hover:bg-red-800 cursor-pointer text-white px-3 rounded`}
             onClick={() => {
-              setDeleteAction(true)
-              setDeletePopup(false)
+              action && action()
+              clear && clear()
+              handleClose()
             }}
           >
-            Ok
-          </button>
-          <button onClick={() => setDeletePopup(false)}>Cancel</button>
+            OK
+          </div>
+
+          {cancel && (
+            <div
+              className="inline-block bg-blue-700 h-10 leading-10 hover:bg-blue-800 cursor-pointer text-white px-3 rounded"
+              onClick={handleClose}
+            >
+              {cancel}
+            </div>
+          )}
         </div>
       </div>
-    </ModelStyle>
+    </div>
   )
 }
-
-export default Model
-
-const ModelStyle = styled.div``

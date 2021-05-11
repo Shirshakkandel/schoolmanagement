@@ -13,6 +13,10 @@ import StudentDetails from './Pages/Student/StudentDetails';
 import UpdateStudent from './Pages/Student/UpdateStudent';
 import AddParent from './Pages/Parent/AddParent';
 import AllParent from './Pages/Parent/AllParent';
+import ParentDetails from './Pages/Parent/ParentDetails';
+import UpdateParent from './Pages/Parent/UpdateParent';
+import Subject from './Pages/Subject';
+
 
 function App() {
   const [open, setOpen] = useState(false);
@@ -50,9 +54,12 @@ function App() {
       <Sidebar open={open} setOpen={setOpen} width={useWindowSize()} />
         {/* Main */}
         
+       
 
         <Switch>
+           
           <Route path="/" exact>
+
             <Dashboard open={open} setOpen={setOpen} width={useWindowSize()} />
           </Route>
 
@@ -81,7 +88,7 @@ function App() {
           </Route>
 
            <Route path="/addteacher">
-            <AddNewTeacher title="Teacher" subTitle="Add Teacher" open={open} width={useWindowSize()} />
+            <AddNewTeacher  open={open}  />
           </Route>
 
            <Route path="/addParent">
@@ -92,6 +99,18 @@ function App() {
             <AllParent title="Parent" subTitle="All Parent" open={open} width={useWindowSize()} />
           </Route>
 
+          <Route path="/parentDetails/:id">
+            <ParentDetails title="Parent" subTitle="Parent Detail" open={open} width={useWindowSize()}/>
+          </Route>
+
+           <Route path="/updateParentForm/:id">
+            <UpdateParent  open={open} width={ useWindowSize()}/>
+          </Route>
+          
+           <Route path="/subject">
+            <Subject  open={open} />
+          </Route>
+
 
           </Switch>
         </div>
@@ -100,7 +119,4 @@ function App() {
     </BrowserRouter>
   );
 }
-
 export default App;
-
-

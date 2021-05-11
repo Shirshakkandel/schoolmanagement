@@ -56,9 +56,8 @@ export default function AllStudent({ width, open, title, subTitle }) {
         console.log(err)
       }
     }
-
     fetchAllStudent()
-  }, [students])
+  }, [])
 
   return (
     <AllStudentStyle

@@ -1,16 +1,20 @@
-import axios from 'axios'
 import React, { useState } from 'react'
-import styled from 'styled-components/macro'
+import useForm from '../../components/customeHook/useForm'
+import FormContainer from '../../components/UI/Form/FormContainer'
+import { FormInput, SelectInput } from '../../components/UI/Form/FormInput'
+import PageHeader from '../../components/UI/PageHeader'
+import { useWindowSize } from '../../globalState/globalState'
 
-function AddNewTeacher({ width, open, title, subTitle }) {
-  const [newTeacher, setNewTeacher] = useState({
+export default function AddNewTeacher({ open }) {
+  const width = useWindowSize()
+  const [teacherField, setAddTeacherField] = useState({
     address: '',
     bloodGroup: '',
     caste: '',
     contactNumber: '',
     disabilityName: '',
+    disable: Boolean,
     dob: '',
-    id: '',
     email: '',
     emergencyContactNumber: '',
     ethnicity: '',
@@ -31,279 +35,271 @@ function AddNewTeacher({ width, open, title, subTitle }) {
     section: '',
     subject: [
       {
-        id: {},
         subjectCode: '',
         subjectName: '',
-      },
+      }, 
     ],
     totalEarning: '',
   })
-
-  const newTeacherInput = [
-    {
-      id: 1,
-      label: 'First Name *',
-      type: 'text',
-      value: newTeacher.fname,
-      name: 'fname',
-    },
-    {
-      id: 2,
-      label: 'Middle Name *',
-      type: 'text',
-      value: newTeacher.mname,
-      name: 'mname',
-    },
-    {
-      id: 3,
-      label: 'Last Name *',
-      type: 'text',
-      value: newTeacher.lname,
-      name: 'lname',
-    },
-
-    {
-      id: 4,
-      label: 'Gender *',
-      value: newTeacher.gender,
-      name: 'gender',
-      options: [
-        { id: 1, label: 'Gender *', value: '' },
-        { id: 2, label: 'Male', value: 'Male' },
-        { id: 3, label: 'Female', value: 'Female' },
-        { id: 4, label: 'Other', value: 'Other' },
-      ],
-    },
-
-    {
-      id: 5,
-      label: 'Date of Birth *',
-      value: newTeacher.dob,
-      name: 'dob',
-      type: 'date',
-    },
-
-    {
-      id: 6,
-      value: newTeacher.bloodGroup,
-      label: 'Blood Group *',
-      name: 'bloodGroup',
-      type: 'text',
-    },
-    {
-      id: 8,
-      value: newTeacher.email,
-      label: 'Email *',
-      name: 'email',
-      type: 'email',
-    },
-    {
-      id: 12,
-      value: newTeacher.address,
-      label: 'Address *',
-      name: 'address',
-      type: 'text',
-    },
-
-    {
-      id: 9,
-      value: newTeacher.grade,
-      label: 'Grade *',
-      name: 'grade',
-      options: [
-        {
-          id: 1,
-          label: 'Please Select Class *',
-          value: 'Please Select Class *',
-        },
-        { id: 2, label: 'Play', value: 'Play' },
-        { id: 3, label: 'One', value: 'One' },
-        { id: 4, label: 'Two', value: 'Two' },
-        { id: 5, label: 'Three', value: 'Three' },
-        { id: 6, label: 'Four', value: 'Four' },
-        { id: 7, label: 'Five', value: 'Five' },
-        { id: 8, label: 'Six', value: 'Six' },
-        { id: 9, label: 'Seven', value: 'Seven' },
-        { id: 10, label: 'Eight', value: 'Eight' },
-        { id: 11, label: 'Nine', value: 'Nine' },
-        { id: 12, label: 'Ten', value: 'Ten' },
-      ],
-    },
-
-    {
-      id: 10,
-      value: newTeacher.fatherName,
-      label: 'Father Name *',
-      name: 'fatherName',
-      type: 'text',
-    },
-
-    {
-      id: 11,
-      value: newTeacher.fatherCitizenShipNumber,
-      label: 'Father Citizenship Number *',
-      name: 'fatherCitizenShipNumber',
-      type: 'text',
-    },
-
-    {
-      id: 14,
-      label: 'Mother Citizenship Number ',
-      value: newTeacher.motherCitizenShipNumber,
-      name: 'motherCitizenShipNumber',
-      type: 'text',
-    },
-    {
-      id: 15,
-      label: 'Mother Tongue ',
-      value: newTeacher.motherTongue,
-      name: 'motherTongue',
-      type: 'text',
-    },
-    {
-      id: 16,
-      label: 'Caste ',
-      value: newTeacher.caste,
-      name: 'Caste',
-      type: 'text',
-    },
-    {
-      id: 17,
-      label: 'Ethnicity ',
-      value: newTeacher.ethnicity,
-      name: 'ethnicity',
-      type: 'text',
-    },
-    {
-      id: 18,
-      label: 'Religion *',
-      value: newTeacher.religion,
-      name: 'religion',
-      type: 'text',
-    },
-
-    {
-      id: 21,
-      label: 'Date of leave',
-      value: newTeacher.dataOfLeave,
-      name: 'dataOfLeave',
-      type: 'date',
-    },
-
-    {
-      id: 27,
-      label: 'Has Discount',
-      value: newTeacher.hasDiscount,
-      name: 'hasDiscount',
-      type: 'text',
-    },
-  ]
-
-  const handlerChange = async (e) => {
-    const name = e.target.name
-    const value = e.target.value
-    setNewTeacher({ ...newTeacher, [name]: value })
-  }
-
-  async function addNewTeacher() {
-    const { data } = await axios.post(
-      '/api/teacher/addNewTeacherDetail',
-      {
-        ...newTeacher,
-      },
-      {
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      }
-    )
-  }
-
-  return (
-    <AddNewTeacherStyled
-      width={width}
-      className={`bg-gray-200 h-auto ml-${
-        width > 1024 && open ? 80 : 0
-      } p-8 transition-all duration-500 ease-in-out`}
-      overflow-x-hidden
-    >
-      <h1 className="h-6 text-lg font-bold ">{title}</h1>
-      <div className="pb-3">
-        Home <span className="text-yellow-600"> &gt; {subTitle}</span>
-      </div>
-
-      <div className="card bg-gray-100 w-full">
-        <div className="content p-5">
-          <h2 className="header font-bold text-gray-800 mb-4">
-            Add New Students
-          </h2>
-          <form onSubmit={addNewTeacher} type="post">
-            <div className="forminputContainer  grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-              {newTeacherInput.map(
-                ({ id, label, type, value, name, options }) => (
-                  <SingleFormGroup
-                    id={id}
-                    label={label}
-                    name={name}
-                    options={options}
-                    type={type}
-                    value={value}
-                    onChange={handlerChange}
-                  />
-                )
-              )}
-            </div>
-
-            <button
-              type="submit"
-              className=" w-full block bg-yellow-300 p-2 md:w-40"
-            >
-              Submit
-            </button>
-          </form>
-        </div>
-      </div>
-    </AddNewTeacherStyled>
+  const { handleChange, values, handleSubmit, errors } = useForm(
+    addTeacher,
+    teacherField,
+    setAddTeacherField
   )
-}
-export default AddNewTeacher
 
-const AddNewTeacherStyled = styled.div``
+  function addTeacher() {}
+  return (
+    <PageHeader
+      title="Teacher"
+      subTitle="Add New Teacehr"
+      open={open}
+      width={width}
+    >
+      <form noValidate>
+        <FormContainer>
+          <FormInput
+            label="First Name *"
+            value={values.fname}
+            name="fname"
+            onChange={handleChange}
+            errors={errors.fname}
+          />
 
-export const SingleFormGroup = ({
-  id,
-  name,
-  label,
-  options,
-  value,
-  type,
-  onChange,
-}) => {
-  return !options ? (
-    <div key={id} className="group flex flex-col">
-      <label className="mb-2 pl-1">{label}</label>
-      <input
-        className="h-10 mb-2 outline-none bg-gray-300 p-2"
-        type={type}
-        name={name}
-        value={value}
-        onChange={onChange}
-      />
-    </div>
-  ) : (
-    <div key={id} className="flex flex-col">
-      <label className="mb-2 pl-1">{label}</label>
-      <select
-        className="h-10 mb-2 outline-none bg-gray-300 p-2"
-        onChange={onChange}
-        name={name}
-      >
-        {options.map(({ id, label }) => (
-          <option key={id} className="outline-none" value={id}>
-            {label}
-          </option>
-        ))}
-      </select>
-    </div>
+          <FormInput
+            label="Middle Name *"
+            value={values.mname}
+            name="mname"
+            onChange={handleChange}
+          />
+
+          <FormInput
+            label="Last Name *"
+            value={values.lname}
+            name="lname"
+            onChange={handleChange}
+            errors={errors.lname}
+          />
+
+          <SelectInput
+            label="Gender *"
+            value={values.gender}
+            name="gender"
+            onChange={handleChange}
+            options={[
+              { label: 'Gender *', ovalue: '' },
+              { label: 'Male', ovalue: 'Male' },
+              { label: 'Female', ovalue: 'Female' },
+              { label: 'Other', ovalue: 'Other' },
+            ]}
+            errors={errors.gender}
+          />
+
+          <FormInput
+            label="Date of Birth *"
+            value={values.dob}
+            name="dob"
+            type="date"
+            onChange={handleChange}
+          />
+
+          <FormInput
+            label="Contanct Number *"
+            value={values.contactNumber}
+            name="contactNumber"
+            onChange={handleChange}
+            errors={errors.contactNumber}
+          />
+
+          <FormInput
+            label="Emergency Contanct Number *"
+            value={values.emergencyContactNumber}
+            name="emergencyContactNumber"
+            onChange={handleChange}
+            errors={errors.emergencyContactNumber}
+          />
+
+          <SelectInput
+            value={values.bloodGroup}
+            label="Blood Group *"
+            name="bloodGroup"
+            onChange={handleChange}
+            options={[
+              { id: 1, label: 'Blood Group *', value: '' },
+              { id: 2, label: 'A+', value: 'A+' },
+              { id: 3, label: 'A-', value: 'A-' },
+              { id: 4, label: 'B+', value: 'B+' },
+              { id: 5, label: 'B-', value: 'B-' },
+              { id: 6, label: 'O+', value: 'O+' },
+              { id: 7, label: 'O-', value: 'O-' },
+            ]}
+          />
+
+          <SelectInput
+            value={values.grade}
+            label="Grade *"
+            name="grade"
+            onChange={handleChange}
+            options={[
+              {
+                id: 1,
+                label: 'Please Select Class *',
+                value: '',
+              },
+              { id: 2, label: 'Play', value: 'Play' },
+              { id: 3, label: 'One', value: 'One' },
+              { id: 4, label: 'Two', value: 'Two' },
+              { id: 5, label: 'Three', value: 'Three' },
+              { id: 6, label: 'Four', value: 'Four' },
+              { id: 7, label: 'Five', value: 'Five' },
+              { id: 8, label: 'Six', value: 'Six' },
+              { id: 9, label: 'Seven', value: 'Seven' },
+              { id: 10, label: 'Eight', value: 'Eight' },
+              { id: 11, label: 'Nine', value: 'Nine' },
+              { id: 12, label: 'Ten', value: 'Ten' },
+            ]}
+          />
+
+          <SelectInput
+            value={values.isClassTeacher}
+            label="Class Teacher *"
+            name="isClassTeacher"
+            onChange={handleChange}
+            options={[
+              { label: 'Is Class Teacher', value: '' },
+              { label: 'Yes', value: 'yes' },
+              { label: 'No', value: 'no' },
+            ]}
+            errors={errors.isClassTeacher}
+          />
+
+          <FormInput
+            value={values.email}
+            label="Email *"
+            name="email"
+            type="email"
+            onChange={handleChange}
+            errors={errors.email}
+          />
+
+          <FormInput
+            value={values.address}
+            label="Address *"
+            name="address"
+            onChange={handleChange}
+            errors={errors.address}
+          />
+
+          <FormInput
+            value={values.fatherName}
+            label="Father Name *"
+            name="fatherName"
+            onChange={handleChange}
+            errors={errors.fatherName}
+          />
+          <FormInput
+            value={values.fatherCitizenShipNumber}
+            label="Father Citizenship Number "
+            name="fatherCitizenShipNumber"
+            onChange={handleChange}
+            errors={errors.fatherCitizenShipNumber}
+          />
+          <FormInput
+            value={values.motherName}
+            label="Mother Name"
+            name="motherName"
+            onChange={handleChange}
+          />
+          <FormInput
+            value={values.motherCitizenShipNumber}
+            label="Mother Citizenship Number"
+            name="motherCitizenShipNumber"
+            onChange={handleChange}
+          />
+
+          <SelectInput
+            label="Disable *"
+            value={values.disable}
+            name="disable"
+            onChange={handleChange}
+            options={[
+              { label: 'Disable *', value: '' },
+              { label: 'True', value: 'true' },
+              { label: 'False', value: 'false' },
+            ]}
+            errors={errors.disable}
+          />
+
+          <FormInput
+            value={values.disabilityName}
+            label="Disability Name *"
+            name="disabilityName"
+            onChange={handleChange}
+            errors={errors.disabilityName}
+          />
+          <FormInput
+            value={values.motherTongue}
+            label="Mother Tongue *"
+            name="motherTongue"
+            onChange={handleChange}
+            errors={errors.motherTongue}
+          />
+          <FormInput
+            value={values.caste}
+            label="Caste *"
+            name="caste"
+            onChange={handleChange}
+            errors={errors.caste}
+          />
+          <FormInput
+            value={values.ethnicity}
+            label="Ethnicity"
+            name="ethnicity"
+            onChange={handleChange}
+          />
+          <FormInput
+            value={values.religion}
+            label="Religion *"
+            name="religion"
+            onChange={handleChange}
+          />
+
+          <FormInput
+            value={values.joiningDate}
+            label="Joining Date *"
+            name="joiningDate"
+            type="date"
+            onChange={handleChange}
+          />
+
+          <FormInput
+            value={values.leaveDate}
+            label="Leave Date *"
+            name="leaveDate"
+            type="date"
+            onChange={handleChange}
+          />
+
+          <FormInput
+            value={values.totalEarning}
+            label="Total Earning *"
+            name="totalEarning"
+            onChange={handleChange}
+            errors={errors.totalEarning}
+          />
+
+          <div>
+            <label htmlFor="">Subject</label>
+          </div>
+        </FormContainer>
+
+        <button
+          type="submit"
+          className=" w-full block bg-yellow-300 p-2 md:w-52 focus:outline-none"
+        >
+          Submit
+        </button>
+        {/* {message && <p className="text-green-500">{message}</p>} */}
+      </form>
+    </PageHeader>
   )
 }

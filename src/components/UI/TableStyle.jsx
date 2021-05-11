@@ -4,12 +4,12 @@ export const TableStyle = styled.table`
   border-spacing: 0;
   width: 100%;
   table-layout: ${(p) => (p.width <= 1024 ? 'fixed' : '')};
-  border: 1px solid #644040;
+  border: ${(p) => (p.loading ? '' : '1px solid #644040')};
 
   th,
   td {
-    text-align: left;
-    border: 1.5px solid #332d2d;
+    text-align: ${(p) => (p.loading ? 'center' : 'left')};
+    border: ${(p) => (p.loading ? '0' : '1.5px solid #332d2d')};
     padding: ${(p) => (p.width <= 786 ? '10px' : '8px')};
     width: ${(p) => (p.width <= 786 ? '150px' : '100px')};
   }

@@ -28,6 +28,7 @@ const UpdateStudent = ({ title, subTitle, open }) => {
     }
     fetchSinglStudentDetail()
   }, [])
+  
   const handlerChange = (e) => {
     const name = e.target.name
     const value = e.target.value
@@ -47,6 +48,7 @@ const UpdateStudent = ({ title, subTitle, open }) => {
     setErrors(validateField())
     setIsSubmitting(true)
   }
+  
   const validateField = () => {
     let errors = {}
     if (!studentDetail.fname.trim()) {

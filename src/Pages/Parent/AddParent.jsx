@@ -1,9 +1,6 @@
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
-import {
-  FormInput,
-  SelectInput,
-} from '../../components/UI/Form/FormInput'
+import { FormInput, SelectInput } from '../../components/UI/Form/FormInput'
 
 function AddParent({ title, subTitle, open, width }) {
   const [errors, setErrors] = useState({})
@@ -188,13 +185,7 @@ function AddParent({ title, subTitle, open, width }) {
                 onChange={handlerChange}
                 errors={errors.mname}
               />
-              <FormInput
-                label="Last Name *"
-                value={addParent.lname}
-                name="lname"
-                onChange={handlerChange}
-                errors={errors.lname}
-              />
+
               <FormInput
                 label="Last Name *"
                 value={addParent.lname}
@@ -329,14 +320,14 @@ function AddParent({ title, subTitle, open, width }) {
                 onChange={handlerChange}
                 errors={errors.occuption}
               />
-              <button
-                type="submit"
-                className=" w-full block bg-yellow-300 p-2 md:w-40 border-none"
-              >
-                Submit
-              </button>
-              {message && <p className="text-green-500">{message}</p>}
             </div>
+            <button
+              type="submit"
+              className=" w-full block bg-yellow-300 p-2 md:w-40 border-none"
+            >
+              Submit
+            </button>
+            {message && <p className="text-green-500">{message}</p>}
           </form>
         </div>
       </div>

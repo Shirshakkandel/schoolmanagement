@@ -114,6 +114,12 @@ function Sidebar({ open, setOpen, width }) {
       ],
     },
     {
+      id: 11,
+      name: 'Subject',
+      icon: <BiNotepad color="yellow" />,
+      to: '/subject',
+    },
+    {
       id: 4,
       name: 'Parents',
       icon: <RiParentFill color="yellow" />,
@@ -234,7 +240,12 @@ function Sidebar({ open, setOpen, width }) {
       icon: <BiBus color="yellow" />,
       to: '/transport',
     },
-    { id: 10, name: 'Notice', icon: <BiNotepad color="yellow" to="/notice" /> },
+    {
+      id: 10,
+      name: 'Notice',
+      icon: <BiNotepad color="yellow" />,
+      to: '/notice',
+    },
   ]
 
   return (
@@ -284,7 +295,7 @@ const SidebarStyled = styled.div`
   transition: all 0.5s ease-in-out;
   overflow-y: auto;
   background-color: '#042954';
-  z-index: 100;
+  /* z-index: 100; */
 
   /* Styling scrollbar */
   ::-webkit-scrollbar {
@@ -307,5 +318,5 @@ const SidebarStyled = styled.div`
 `
 
 const Side = styled.div`
-  z-index: 100;
+  /* z-index: 100; */
 `
