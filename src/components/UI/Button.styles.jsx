@@ -4,7 +4,8 @@ export const SButton = styled.button`
   padding: ${(p) => (p.p ? `${p.p}px` : '10px')};
   cursor: pointer;
   /* min-width: 80px; */
-  width: ${(p) => (p.size ? `${p.size}px` : '')};
+
+  width: ${(p) => (p.size ? `${p.size}px` : '6rem')};
   font-weight: 600;
   outline: none;
   margin-top: 10px;
@@ -30,11 +31,8 @@ export const SButton = styled.button`
   border-radius: 0.25rem;
   /* border: 1px solid black; */
 
-  .heading {
-    flex: 0.99;
-  }
-
   @media (max-width: 786px) {
-    width: ${(p) => p.responsive && `100%`};
+    width: ${(p) => (p.responsive ? `100%` : p.halfresponsive && '45%')};
+    margin: 2%;
   }
 `

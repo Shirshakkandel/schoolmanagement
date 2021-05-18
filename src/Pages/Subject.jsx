@@ -21,12 +21,6 @@ export default function Subject({ open }) {
   const [loading, setLoading] = useState(false)
   const [message, setMessage] = useState('')
 
-  // useEffect(() => {
-  //   const callBackFunction = updateState ? updateSubject : addNewSubject
-  //   setCallBack(callBackFunction)
-  //   console.log(callBack)
-  // }, [updateState])
-
   const [subject, setSubject] = useState({
     subjectCode: null,
     subjectName: '',
@@ -38,12 +32,6 @@ export default function Subject({ open }) {
     { id: 4, label: ' 00524' },
     { id: 5, label: '00525' },
   ]
-
-  // useEffect(() => {
-  //   updateState && setCallBack(updateSubject)
-  //   // console.log(callback)
-  // }, [updateState, idData])
-  //handleSubmit change accoirding to updatestatus
 
   const { handleChange, values, handleSubmit, errors, setErrors, setValues } =
     useForm(
@@ -60,13 +48,8 @@ export default function Subject({ open }) {
       subjectCode: updateState ? idData.subjectCode : null,
       subjectName: updateState ? idData.subjectName : '',
     })
+    setId(idData.id)
   }, [idData, updateState])
-
-  // //change addNewSubject to updateSubject if updateState is true
-  // useEffect(() => {
-  //   addNewSubject = updateState ? updateSubject : addNewSubject
-  //   console.log(addNewSubject)
-  // }, [updateState])
 
   //Fetch all subject
   useEffect(() => {
@@ -80,12 +63,34 @@ export default function Subject({ open }) {
     }
     fetAllSubject()
   }, [])
+
+  async function updateSubject() {
+    const { data } = await axios.put(
+      `/api/Subject/updateSubjectDetail/${id}`,
+      {
+        ...subject,
+      },
+      {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      }
+    )
+    if (data) {
+      setMessage(`Subject with ${id} is updated`)
+      window.location.reload()
+    } else {
+      setMessage('Cannot update given subject')
+    }
+  }
+
   // Reset all data
   function reset() {
     setSubject({ subjectCode: null, subjectName: '' })
     setMessage('')
     setIdData({})
     setUpdateState(false)
+    setErrors('')
   }
 
   //Add new Subject
@@ -112,27 +117,6 @@ export default function Subject({ open }) {
       }
     } catch (err) {
       setMessage('Network error')
-    }
-  }
-  //update subject with given id
-  async function updateSubject() {
-    setId(idData.id)
-    const { data } = await axios.put(
-      `/api/Subject/updateSubjectDetail/${id}`,
-      {
-        ...subject,
-      },
-      {
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      }
-    )
-    if (data) {
-      setMessage(`Subject with ${id} is updated`)
-      window.location.reload()
-    } else {
-      setMessage('Cannot update given subject')
     }
   }
 
@@ -174,12 +158,11 @@ export default function Subject({ open }) {
       title=" All Subject"
       subTitle="Subject"
       open={open}
-      onePageTitle="Add New Subject"
     >
       <div className="flex flex-col space-y-5  md:flex-row md:space-x-4 md:space-y-0 ">
         <div style={{ flex: 0.4 }} className="bg-gray-100 p-3 h-1/2">
-          <h1 className="font-bold">
-            {updateState ? 'Update' : 'Add new'} Subject
+          <h1 className="font-bold my-2  text-center">
+            {updateState ? 'Update' : 'Add New '}Subject
           </h1>
 
           <form onSubmit={handleSubmit}>
@@ -214,9 +197,8 @@ export default function Subject({ open }) {
           </form>
           {message && <p>{message}</p>}
         </div>
-
         <div style={{ flex: 0.6 }} className="bg-gray-100 p-3">
-          <h1 className="font-bold p-1 ">All Subject</h1>
+          <h1 className="font-bold p-1 my-2 text-center ">All Subject</h1>
           {deletePopup && (
             <PopupMessage
               popUp={deletePopup}
@@ -233,7 +215,7 @@ export default function Subject({ open }) {
                   <th className="smallsize">Id</th>
                   <th>Subject Name</th>
                   <th>Date</th>
-                  <th>Action</th>
+                  <th className="bigSize">Action</th>
                 </tr>
               </thead>
               <tbody>
@@ -245,27 +227,29 @@ export default function Subject({ open }) {
                         <td className="smallsize">{subjectCode}</td>
                         <td>{subjectName}</td>
                         <td>{date.toDateString()}</td>
-                        <td className=" w-52 text-center md:text-left">
-                          <SButton
-                            size={60}
-                            p={4}
-                            green
-                            onClick={() => update(id)}
-                          >
-                            Update
-                          </SButton>
+                        <td className="bigSize text-center md:text-left">
+                          <span>
+                            <SButton
+                              size={65}
+                              p={4}
+                              green
+                              onClick={() => update(id)}
+                            >
+                              Update
+                            </SButton>
 
-                          <SButton
-                            size={60}
-                            p={4}
-                            red
-                            onClick={() => {
-                              setDeletePopup(true)
-                              setId(id)
-                            }}
-                          >
-                            Delete
-                          </SButton>
+                            <SButton
+                              size={65}
+                              p={4}
+                              red
+                              onClick={() => {
+                                setDeletePopup(true)
+                                setId(id)
+                              }}
+                            >
+                              Delete
+                            </SButton>
+                          </span>
                         </td>
                       </tr>
                     )

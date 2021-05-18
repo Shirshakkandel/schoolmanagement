@@ -68,7 +68,7 @@ export default function DropDown({
                 className={`option ${value === option ? 'selected' : null}`}
                 onClick={() => {
                   setQuery('')
-                  onChange(option[label])
+                  onChange(option[label], option[id])
                   setOpen(false)
                 }}
               >

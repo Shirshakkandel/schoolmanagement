@@ -9,44 +9,44 @@ import { RiAccountCircleLine } from 'react-icons/ri'
 // import { MdDashboard } from 'react-icons/md'
 import { BiSearchAlt } from 'react-icons/bi'
 import styled from 'styled-components/macro'
-import { Link } from 'react-router-dom'
+import { Link, useHistory } from 'react-router-dom'
 
 function Header({ open, setOpen, width }) {
   const [adminDropDown, setAdminDropDown] = React.useState(false)
   const [messageDropDown, setMessageDropDown] = React.useState(false)
   const [notificationDropDown, setNotificationDropDown] = React.useState(false)
-
-  const adminNameRef = useRef(null)
-  const adminTitleRef = useRef(null)
-  const adminIconRef = useRef(null)
-  const adminImgRef = useRef(null)
+  const history = useHistory()
+  // const adminNameRef = useRef(null)
+  // const adminTitleRef = useRef(null)
+  // const adminIconRef = useRef(null)
+  // const adminImgRef = useRef(null)
 
   const messageRef = useRef(null)
   const notificationRef = useRef(null)
 
   const logoutHandler = () => {}
 
-  useEffect(() => {
-    const close = (e) => {
-      setAdminDropDown(
-        e &&
-          (e.target === adminImgRef.current ||
-            e.target === adminTitleRef.current ||
-            e.target === adminIconRef.current ||
-            e.target === adminNameRef.current)
-      )
-      adminDropDown &&
-        e &&
-        (e.target === adminImgRef.current ||
-          e.target === adminTitleRef.current ||
-          e.target === adminIconRef.current ||
-          e.target === adminNameRef.current) &&
-        setAdminDropDown(false)
-    }
+  // useEffect(() => {
+  //   const close = (e) => {
+  //     setAdminDropDown(
+  //       e &&
+  //         (e.target === adminImgRef.current ||
+  //           e.target === adminTitleRef.current ||
+  //           e.target === adminIconRef.current ||
+  //           e.target === adminNameRef.current)
+  //     )
+  //     adminDropDown &&
+  //       e &&
+  //       (e.target === adminImgRef.current ||
+  //         e.target === adminTitleRef.current ||
+  //         e.target === adminIconRef.current ||
+  //         e.target === adminNameRef.current) &&
+  //       setAdminDropDown(false)
+  //   }
 
-    document.addEventListener('click', close)
-    return () => document.removeEventListener('click', close)
-  }, [adminDropDown])
+  //   document.addEventListener('click', close)
+  //   return () => document.removeEventListener('click', close)
+  // }, [adminDropDown])
 
   const [messages, setMessages] = useState([
     {
@@ -112,23 +112,23 @@ function Header({ open, setOpen, width }) {
       {/* Header Right  */}
       <div className="header__right flex space-x-3 items-center relative mr-3">
         {/* {Admin box} */}
-        <div className="cursor-pointer flex flex-col relative">
+        <div
+          className="cursor-pointer flex flex-col relative"
+          tabIndex="0"
+          onBlur={() => setAdminDropDown(false)}
+        >
           <div
-            className=" accountInfo flex items-center space-x-1"
+            className="accountInfo flex items-center space-x-1"
             onClick={() => setAdminDropDown(!adminDropDown)}
           >
             <div className="">
               <div className="dropdown__header">
-                <h3 ref={adminNameRef} className="font-bold ">
-                  Shirshak kandel
-                </h3>
-                <p ref={adminTitleRef} className="ml-auto font-light">
-                  Admin
-                </p>
+                <h3 className="font-bold ">Shirshak kandel</h3>
+                <p className="ml-auto font-light">Admin</p>
               </div>
             </div>
 
-            <div className="dropdown font-light" ref={adminIconRef}>
+            <div className="dropdown font-light">
               <IoMdArrowDropdown />
             </div>
 
@@ -137,14 +137,12 @@ function Header({ open, setOpen, width }) {
                 src="../../images/admin.jpg"
                 className=" rounded-full"
                 alt="Admin"
-                ref={adminImgRef}
               />
             </div>
           </div>
-
           <div
             className={`dropdown__body absolute ${
-              adminDropDown ? 'block' : ' hidden'
+              adminDropDown ? ' visible' : ' hidden'
             } z-40 transition-all duration-500 ease-in-out  `}
           >
             <div className="header bg-yellow-400 border-none">
@@ -152,24 +150,30 @@ function Header({ open, setOpen, width }) {
             </div>
 
             <div className="list bg-gray-200 ">
-              <Link
-                to="/profile"
+              <div
+                onClick={() => {
+                  history.push('/profile')
+                  setAdminDropDown(false)
+                }}
                 className="flex  items-center space-x-2 pl-10 p-3 hover:bg-gray-300"
               >
                 <RiAccountCircleLine />
                 <div>My Profile</div>
-              </Link>
-              <Link
-                to="/task"
+              </div>
+
+              <div
+                onClick={() => {
+                  history.push('/message')
+                  setAdminDropDown(false)
+                }}
                 className="flex  items-center space-x-2 pl-10 p-3 hover:bg-gray-300"
               >
                 <BsBook /> <div>Task</div>
-              </Link>
+              </div>
               <Link
                 to="/message"
                 className="flex  items-center space-x-2 pl-10 p-3 hover:bg-gray-300"
               >
-                {' '}
                 <AiOutlineMessage />
                 <div>Message</div>
               </Link>
@@ -177,7 +181,6 @@ function Header({ open, setOpen, width }) {
                 to="/setting"
                 className="flex  items-center space-x-2 pl-10 p-3 hover:bg-gray-300"
               >
-                {' '}
                 <AiOutlineSetting /> <div>Account Setting</div>
               </Link>
               <Link
@@ -190,15 +193,15 @@ function Header({ open, setOpen, width }) {
             </div>
           </div>
         </div>
+        {/* {Admin box} */}
 
         {/* Message box */}
-        <div ref={messageRef} className="message flex flex-col ">
+        <div ref={messageRef} className="message flex flex-col">
           <div
             className="message__body flex items-center space-x-1  cursor-pointer relative"
             onClick={() => setMessageDropDown(!messageDropDown)}
           >
             <div>
-              {' '}
               <BsEnvelope size={25} />
             </div>
             <div className="badge bg-green-500 ">5</div>
@@ -237,7 +240,6 @@ function Header({ open, setOpen, width }) {
             </div>
           </div>
         </div>
-
         {/* Notification */}
         <div ref={notificationRef} className="notification flex flex-col ">
           <div

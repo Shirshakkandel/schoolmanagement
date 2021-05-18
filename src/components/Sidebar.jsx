@@ -59,6 +59,29 @@ function Sidebar({ open, setOpen, width }) {
     },
 
     {
+      id: 12,
+      name: 'Admin',
+      icon: <FaUserGraduate color="yellow" />,
+      up: <IoIosArrowUp />,
+      down: <IoIosArrowDown />,
+      subMenu: [
+        {
+          id: 1,
+          title: 'All Admin',
+          to: '/adminList',
+          side: <MdKeyboardArrowRight />,
+        },
+
+        {
+          id: 2,
+          title: 'Add Admin ',
+          to: '/addAdmin',
+          side: <MdKeyboardArrowRight />,
+        },
+      ],
+    },
+
+    {
       id: 2,
       name: 'Students',
       icon: <FaUserGraduate color="yellow" />,
@@ -261,7 +284,7 @@ function Sidebar({ open, setOpen, width }) {
       <SidebarStyled
         open={open}
         className={`fixed left-0 top-0 h-full  bg-gray-700 text-white  z-50
-            w-${open ? '6/12' : 0} opacity-${open ? 1 : 0}  } max-w-xs`}
+            w-${open ? '8/12' : 0} opacity-${open ? 1 : 0}  } max-w-xs`}
       >
         {/* SidebarHeader */}
         <div className=" bg-red-600 flex items-center space-x-2 p-4">

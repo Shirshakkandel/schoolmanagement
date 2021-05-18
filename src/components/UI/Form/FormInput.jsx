@@ -21,7 +21,7 @@ function FormInput({
       </label>
       <input
         id={id}
-        className={`h-10 mb-2 outline-none bg-gray-300 p-2 ${
+        className={`mb-2 outline-none bg-gray-300 p-2 ${
           errors && 'border-red-500 border-2'
         } `}
         placeholder={placeholder}

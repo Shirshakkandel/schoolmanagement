@@ -13,10 +13,14 @@ function PageHeader({ width, title, subTitle, open, children, onePageTitle }) {
       <div className="pb-3">
         Home <span className="text-yellow-600"> &gt; {subTitle}</span>
       </div>
-      <div className={`card ${!onePageTitle && 'bg-gray-100'} w-full`}>
-        {!onePageTitle && (
+      <div
+        className={`card ${
+          onePageTitle && 'bg-gray-100'
+        } px-3 rounded  shadow-2xl  w-full py-5`}
+      >
+        {onePageTitle && (
           <div className="content p-5">
-            <h2 className="header font-bold text-gray-800 mb-4">
+            <h2 className="header font-bold text-gray-800 mb-4 text-center">
               {onePageTitle}
             </h2>
           </div>

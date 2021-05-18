@@ -4,14 +4,16 @@ export const TableStyle = styled.table`
   border-spacing: 0;
   width: 100%;
   table-layout: ${(p) => (p.width <= 1024 ? 'fixed' : '')};
+  /* table-layout: 'fixed'; */
   border: ${(p) => (p.loading ? '' : '1px solid #644040')};
+  margin-bottom: 12px;
 
   th,
   td {
     text-align: ${(p) => (p.loading ? 'center' : 'left')};
     border: ${(p) => (p.loading ? '0' : '1.5px solid #332d2d')};
     padding: ${(p) => (p.width <= 786 ? '10px' : '8px')};
-    width: ${(p) => (p.width <= 786 ? '150px' : '100px')};
+    width: ${(p) => (p.width <= 786 ? '150px' : '')};
   }
 
   tr:first {
@@ -29,6 +31,11 @@ export const TableStyle = styled.table`
     width: ${(p) => (p.width <= 786 ? '150px' : '')};
   }
   .bigSize {
-    width: ${(p) => (p.width <= 786 ? '230px' : '')};
+    width: 230px;
+    /* width: 230px; */
+  }
+
+  .emailSize {
+    width: ${(p) => (p.width <= 786 ? '300px' : '250px')};
   }
 `

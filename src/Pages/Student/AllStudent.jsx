@@ -74,7 +74,7 @@ export default function AllStudent({ width, open, title, subTitle }) {
 
       <div className="searchBox grid grid-cols-1 gap-2  md:grid-cols-3">
         <div className="flex flex-col">
-          <label className="m-1 pl-1 text-gray-500" htmlFor="id">
+          <label className="m-1 pl-1  text-gray-500" htmlFor="id">
             Search by Id
           </label>
           <input

@@ -16,6 +16,10 @@ import AllParent from './Pages/Parent/AllParent';
 import ParentDetails from './Pages/Parent/ParentDetails';
 import UpdateParent from './Pages/Parent/UpdateParent';
 import Subject from './Pages/Subject';
+import AddAdmin from './Pages/Admin/AddAdmin';
+import AdminList from './Pages/Admin/AdminList';
+import AdminDetail from './Pages/Admin/AdminDetail';
+import UpdateAdmin from './Pages/Admin/UpdateAdmin';
 
 
 function App() {
@@ -111,6 +115,21 @@ function App() {
             <Subject  open={open} />
           </Route>
 
+          <Route path="/addAdmin">
+            <AddAdmin open={open}/>
+          </Route>
+
+          <Route path="/adminList">
+            <AdminList open={open }/>
+          </Route>
+
+            <Route path="/adminDetail/:id">
+            <AdminDetail open={open }/>
+          </Route>
+
+           <Route path="/updateAdmin/:id">
+            <UpdateAdmin open={open}/>
+          </Route>
 
           </Switch>
         </div>
