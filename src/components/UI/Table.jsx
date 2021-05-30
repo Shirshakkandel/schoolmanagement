@@ -1,6 +1,6 @@
 import React from 'react'
 import { MdSwapVert } from 'react-icons/md'
-import { SButton } from './Button.styles'
+import { SButton } from './SButton.styles'
 import { TableStyle } from './TableStyle'
 
 function Table({ tableHeader, tableRow, width, sortDataHandler }) {

@@ -19,7 +19,7 @@ function useForm(callBack, values, setValues, validate) {
     if (Object.keys(errors).length === 0 && isSubmitting) {
       callBack()
     }
-  }, [errors, isSubmitting])
+  }, [isSubmitting, errors])
 
   return {
     handleChange,
@@ -28,6 +28,8 @@ function useForm(callBack, values, setValues, validate) {
     errors,
     setValues,
     setErrors,
+    setIsSubmitting,
+    isSubmitting,
   }
 }
 export default useForm

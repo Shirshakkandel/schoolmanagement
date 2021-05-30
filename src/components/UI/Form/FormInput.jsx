@@ -21,7 +21,7 @@ function FormInput({
       </label>
       <input
         id={id}
-        className={`mb-2 outline-none bg-gray-300 p-2 ${
+        className={`mb-2 h-10 outline-none bg-gray-300 p-2 ${
           errors && 'border-red-500 border-2'
         } `}
         placeholder={placeholder}
@@ -31,7 +31,7 @@ function FormInput({
         onChange={onChange}
       />
 
-      {errors && <p className="ml-1 font-semibold text-red-500">{errors}</p>}
+      {errors && <p className="ml-1 font-semibold text-red-400">{errors}</p>}
     </div>
   )
 }
@@ -52,7 +52,7 @@ function SelectInput({ label, onChange, name, options, value, errors }) {
         ))}
       </select>
 
-      {errors && <p className=" text-red-500">{errors}</p>}
+      {errors && <p className=" text-red-400">{errors}</p>}
     </div>
   )
 }

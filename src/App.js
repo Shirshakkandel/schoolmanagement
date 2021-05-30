@@ -20,7 +20,20 @@ import AddAdmin from './Pages/Admin/AddAdmin';
 import AdminList from './Pages/Admin/AdminList';
 import AdminDetail from './Pages/Admin/AdminDetail';
 import UpdateAdmin from './Pages/Admin/UpdateAdmin';
+import Teachers from './Pages/Teacher/Teachers';
+import TeacherDetail from './Pages/Teacher/TeacherDetail';
+import UpdateTeacher from './Pages/Teacher/UpdateTeacher';
 
+import AddAttendence from './Pages/Attendence/AddAttendence';
+import Attendence from './Pages/Attendence/Attendence';
+import UpdateAttendance from './Pages/Attendence/UpdateAttendence';
+import AttendenceDetail from './Pages/Attendence/AttendenceDetail';
+import Notice from './Pages/Notice';
+import AddExam from './Pages/Exam/AddExam';
+import AllExam from './Pages/Exam/AllExam';
+import Routine from './Pages/Routine';
+import RoutineList from './Pages/RoutineList';
+import UpdatetRoutine from './Pages/UpdatetRoutine';
 
 function App() {
   const [open, setOpen] = useState(false);
@@ -95,6 +108,19 @@ function App() {
             <AddNewTeacher  open={open}  />
           </Route>
 
+            <Route path="/teacherlist">
+            <Teachers  open={open}  />
+          </Route>
+
+          
+          <Route path="/teacherDetail/:id">
+            <TeacherDetail open={open} />
+          </Route>
+
+          <Route path="/updateTeacher/:id">
+            <UpdateTeacher open={open} />
+          </Route>
+
            <Route path="/addParent">
             <AddParent title="Parent" subTitle="Add Parent" open={open} width={useWindowSize()} />
           </Route>
@@ -131,6 +157,46 @@ function App() {
             <UpdateAdmin open={open}/>
           </Route>
 
+          
+          <Route path="/addAttendence">
+            <AddAttendence open={open}/>
+          </Route>
+
+          <Route path="/attendenceList">
+            <Attendence open={open }/>
+          </Route>
+
+            <Route path="/attendenceDetail/:id">
+            <AttendenceDetail open={open }/>
+          </Route>
+
+           <Route path="/updateAttendence/:id">
+            <UpdateAttendance open={open}/>
+          </Route>
+
+           <Route path="/notice">
+            <Notice open={open}/>
+          </Route>
+
+          <Route path="/addexam">
+            <AddExam open={open}/>
+          </Route>
+
+           <Route path="/allexam">
+            <AllExam open={open}/>
+          </Route>
+           
+          <Route path="/routine">
+            <Routine open={open }/>
+          </Route>
+
+          <Route path="/routineList">
+            <RoutineList open={open}/>
+          </Route>
+
+          <Route path="/updateroutine/:id">
+            <UpdatetRoutine open={open}/>
+          </Route>
           </Switch>
         </div>
      

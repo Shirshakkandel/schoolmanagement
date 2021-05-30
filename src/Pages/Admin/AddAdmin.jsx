@@ -1,7 +1,7 @@
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import useForm from '../../components/customeHook/useForm'
-import { SButton } from '../../components/UI/Button.styles'
+import { SButton } from '../../components/UI/SButton.styles'
 import FormContainer from '../../components/UI/Form/FormContainer'
 import { FormInput, SelectInput } from '../../components/UI/Form/FormInput'
 import PageHeader from '../../components/UI/PageHeader'

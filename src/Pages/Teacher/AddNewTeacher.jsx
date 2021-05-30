@@ -5,15 +5,16 @@ import DropDown from '../../components/UI/DropDown'
 import FormContainer from '../../components/UI/Form/FormContainer'
 import { FormInput, SelectInput } from '../../components/UI/Form/FormInput'
 import PageHeader from '../../components/UI/PageHeader'
+import { SButton } from '../../components/UI/SButton.styles'
 import { useWindowSize } from '../../globalState/globalState'
+import teacherValidation from '../../validation/teacherValidation'
 
-export default function AddNewTeacher({ open }) {
+export default function AddNewTeacher({ open, updateStatus, idData }) {
   const width = useWindowSize()
   const [loading, setLoading] = useState(false)
   const [subject, setSubject] = useState([])
   const [error, setError] = useState('')
-  const [dropDownValue, setDropDownValue] = useState('')
-  const [dropDownId, setDropDownId] = useState('')
+  const [message, setMessage] = useState('')
   const [teacherField, setAddTeacherField] = useState({
     address: '',
     bloodGroup: '',
@@ -42,6 +43,9 @@ export default function AddNewTeacher({ open }) {
     section: '',
     subject: [
       {
+        dateCreated: '2021-05-19T05:09:16.674Z',
+        dateUpdated: '2021-05-19T05:09:16.674Z',
+        id: 0,
         subjectCode: '',
         subjectName: '',
       },
@@ -49,19 +53,13 @@ export default function AddNewTeacher({ open }) {
     totalEarning: '',
   })
 
-  // useEffect(() => {
-  //   setValues((state) => {
-  //     state.subject[0].subjectName = dropDownValue
-  //     state.subject[0].subjectCode = dropDownId
-  //     return state
-  //   })
-  // }, [dropDownValue, dropDownId])
-
-  const { handleChange, values, handleSubmit, setValues, errors } = useForm(
-    addTeacher,
-    teacherField,
-    setAddTeacherField
-  )
+  const { handleChange, values, handleSubmit, setValues, errors, setErrors } =
+    useForm(
+      updateStatus ? updateTeacher : addTeacher,
+      teacherField,
+      setAddTeacherField,
+      teacherValidation
+    )
 
   useEffect(() => {
     const subjectUrl = '/api/Subject/viewAllSubjectDetail'
@@ -77,9 +75,128 @@ export default function AddNewTeacher({ open }) {
     fetchSubject()
   }, [])
 
-  async function addTeacher() {}
+  useEffect(() => {
+    setAddTeacherField({
+      address: updateStatus ? idData.address : '',
+      bloodGroup: updateStatus ? idData.bloodGroup : '',
+      caste: updateStatus ? idData.caste : '',
+      contactNumber: updateStatus ? idData.contactNumber : '',
+      disabilityName: updateStatus ? idData.disabilityName : '',
+      disable: updateStatus ? idData.diasable : Boolean,
+      dob: updateStatus ? idData.dob : '',
+      email: updateStatus ? idData.email : '',
+      emergencyContactNumber: updateStatus ? idData.emergencyContactNumber : '',
+      ethnicity: updateStatus ? idData.ethnicity : '',
+      fatherCitizenShipNumber: updateStatus
+        ? idData.fatherCitizenShipNumber
+        : '',
+      fatherName: updateStatus ? idData.fatherName : '',
+      fname: updateStatus ? idData.fname : '',
+      gender: updateStatus ? idData.gender : '',
+      grade: updateStatus ? idData.grade : '',
+      isClassTeacher: updateStatus ? idData.isClassTeacher : '',
+      joiningDate: updateStatus ? idData.joiningDate : '',
+      leaveDate: updateStatus ? idData.leaveDate : '',
+      lname: updateStatus ? idData.lname : '',
+      mname: updateStatus ? idData.mname : '',
+      motherCitizenShipNumber: updateStatus
+        ? idData.motherCitizenShipNumber
+        : '',
+      motherName: updateStatus ? idData.motherName : '',
+      motherTongue: updateStatus ? idData.motherTongue : '',
+      religion: updateStatus ? idData.religion : '',
+      section: updateStatus ? idData.section : '',
+      totalEarning: updateStatus ? idData.totalEarning : '',
+      subject: updateStatus
+        ? idData.subject
+        : [
+            {
+              dateCreated: '2021-05-19T05:09:16.674Z',
+              dateUpdated: '2021-05-19T05:09:16.674Z',
+              id: 0,
+              subjectCode: '',
+              subjectName: '',
+            },
+          ],
+    })
+  }, [idData, updateStatus])
 
-  function addTeacher() {}
+  async function addTeacher() {
+    const url = '/api/teacher/addNewTeacherDetail'
+    try {
+      setLoading(true)
+
+      const data = await axios.post(
+        url,
+        { ...teacherField },
+        { header: { 'Content-Type': 'application/json' } }
+      )
+
+      if (data) {
+        console.log(data)
+        setMessage('New Teacher has been added')
+      }
+    } catch (err) {
+      setMessage(err.response.data.message)
+    }
+  }
+
+  async function updateTeacher() {
+    const updateUrl = `/api/teacher/updateTeacherDetail/${idData.id}`
+    try {
+      const { data } = await axios.put(
+        updateUrl,
+        { ...teacherField },
+        { headers: { 'Content-Type': 'application/json' } }
+      )
+
+      if (data) {
+        setMessage(`Admin with ${idData.id} is updated`)
+        window.location.reload()
+      }
+    } catch (err) {
+      setErrors(err.response.data.message)
+    }
+  }
+
+  function resetHandler() {
+    setAddTeacherField({
+      address: '',
+      bloodGroup: '',
+      caste: '',
+      contactNumber: '',
+      disabilityName: '',
+      disable: Boolean,
+      dob: '',
+      email: '',
+      emergencyContactNumber: '',
+      ethnicity: '',
+      fatherCitizenShipNumber: '',
+      fatherName: '',
+      fname: '',
+      gender: '',
+      grade: '',
+      isClassTeacher: '',
+      joiningDate: '',
+      leaveDate: '',
+      lname: '',
+      mname: '',
+      motherCitizenShipNumber: '',
+      motherName: '',
+      motherTongue: '',
+      religion: '',
+      section: '',
+      subject: [
+        {
+          subjectCode: '',
+          subjectName: '',
+        },
+      ],
+      totalEarning: '',
+    })
+    setMessage('')
+  }
+
   return (
     <PageHeader
       title="Teacher"
@@ -87,7 +204,8 @@ export default function AddNewTeacher({ open }) {
       open={open}
       width={width}
     >
-      <form noValidate>
+      {console.log(idData?.fname)}
+      <form noValidate onSubmit={handleSubmit} type="post">
         <FormContainer>
           <FormInput
             label="First Name *"
@@ -98,7 +216,7 @@ export default function AddNewTeacher({ open }) {
           />
 
           <FormInput
-            label="Middle Name *"
+            label="Middle Name "
             value={values.mname}
             name="mname"
             onChange={handleChange}
@@ -132,12 +250,14 @@ export default function AddNewTeacher({ open }) {
             name="dob"
             type="date"
             onChange={handleChange}
+            errors={errors.dob}
           />
 
           <FormInput
             label="Contanct Number *"
             value={values.contactNumber}
             name="contactNumber"
+            type="number"
             onChange={handleChange}
             errors={errors.contactNumber}
           />
@@ -145,6 +265,7 @@ export default function AddNewTeacher({ open }) {
           <FormInput
             label="Emergency Contanct Number *"
             value={values.emergencyContactNumber}
+            type="number"
             name="emergencyContactNumber"
             onChange={handleChange}
             errors={errors.emergencyContactNumber}
@@ -164,6 +285,7 @@ export default function AddNewTeacher({ open }) {
               { id: 6, label: 'O+', value: 'O+' },
               { id: 7, label: 'O-', value: 'O-' },
             ]}
+            errors={errors.bloodGroup}
           />
 
           <SelectInput
@@ -189,6 +311,14 @@ export default function AddNewTeacher({ open }) {
               { id: 11, label: 'Nine', value: 'Nine' },
               { id: 12, label: 'Ten', value: 'Ten' },
             ]}
+            errors={errors.grade}
+          />
+          <FormInput
+            value={values.section}
+            label="Section *"
+            name="section"
+            onChange={handleChange}
+            errors={errors.section}
           />
 
           <SelectInput
@@ -263,7 +393,7 @@ export default function AddNewTeacher({ open }) {
 
           <FormInput
             value={values.disabilityName}
-            label="Disability Name *"
+            label="Disability Name "
             name="disabilityName"
             onChange={handleChange}
             errors={errors.disabilityName}
@@ -287,12 +417,14 @@ export default function AddNewTeacher({ open }) {
             label="Ethnicity"
             name="ethnicity"
             onChange={handleChange}
+            errors={errors.ethnicity}
           />
           <FormInput
             value={values.religion}
             label="Religion *"
             name="religion"
             onChange={handleChange}
+            errors={errors.religion}
           />
 
           <FormInput
@@ -301,6 +433,7 @@ export default function AddNewTeacher({ open }) {
             name="joiningDate"
             type="date"
             onChange={handleChange}
+            errors={errors.joiningDate}
           />
 
           <FormInput
@@ -315,6 +448,7 @@ export default function AddNewTeacher({ open }) {
             value={values.totalEarning}
             label="Total Earning *"
             name="totalEarning"
+            type="number"
             onChange={handleChange}
             errors={errors.totalEarning}
           />
@@ -326,7 +460,7 @@ export default function AddNewTeacher({ open }) {
               id="subjectCode"
               label="subjectName"
               prompt="Select Subject ..."
-              value={values.subject[0].subjectName}
+              value={values.subject[0]?.subjectName}
               // onChange={(val, id) => {
               //   setDropDownValue(val)
               //   setDropDownId(id)
@@ -337,26 +471,27 @@ export default function AddNewTeacher({ open }) {
                 //   state.subject[0].subjectCode = id
                 //   return state
                 // })
+                const { subject } = values
+                //subject.push({ subjectName: val, subjectCode: id })
+                subject[0] = {
+                  subjectName: val,
+                  subjectCode: id,
+                }
+
                 setValues({
-                  subject: {
-                    [0]: {
-                      subjectName: val,
-                      subjectCode: id,
-                    },
-                  },
+                  ...values,
+                  subject,
                 })
               }}
             />
           </div>
         </FormContainer>
-        {console.log(values.subject[0].subjectName)}
-        <button
-          type="submit"
-          className=" w-full block bg-yellow-300 p-2 md:w-52 focus:outline-none"
-        >
-          Submit
-        </button>
-        {/* {message && <p className="text-green-500">{message}</p>} */}
+
+        <SButton type="submit">Submit</SButton>
+        <SButton red type="button" onClick={() => resetHandler()}>
+          Reset
+        </SButton>
+        {message && <p className="my-3">{message}</p>}
       </form>
     </PageHeader>
   )

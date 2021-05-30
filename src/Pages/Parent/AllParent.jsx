@@ -2,6 +2,7 @@ import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import { useHistory } from 'react-router'
 import styled from 'styled-components/macro'
+import FormContainer from '../../components/UI/Form/FormContainer'
 import { FormInput } from '../../components/UI/Form/FormInput'
 import PopupMessage from '../../components/UI/Model'
 import { TableStyle } from '../../components/UI/TableStyle'
@@ -110,8 +111,8 @@ function AllParent({ title, subTitle, width, open }) {
       <div className="pb-3">
         Home <span className="text-yellow-600"> &gt; {subTitle}</span>
       </div>
-      <form onSubmit={search}>
-        <div className="searchBox grid grid-cols-1 gap-2 md:grid-cols-2 lg:grid-cols-4">
+      <form onSubmit={search} type="post">
+        <FormContainer col={5}>
           <FormInput
             placeholder="Search By Id"
             type="number"
@@ -138,7 +139,7 @@ function AllParent({ title, subTitle, width, open }) {
           >
             Submit
           </button>
-        </div>
+        </FormContainer>
       </form>
       <div className="overflow-x-auto mb-6">
         <DataTable

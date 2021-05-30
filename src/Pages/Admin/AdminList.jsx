@@ -2,7 +2,7 @@ import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import { FormInput } from '../../components/UI/Form/FormInput'
 import PageHeader from '../../components/UI/PageHeader'
-import { SButton } from '../../components/UI/Button.styles'
+import { SButton } from '../../components/UI/SButton.styles'
 import { useWindowSize } from '../../globalState/globalState'
 import styled from 'styled-components/macro'
 import { TableStyle } from '../../components/UI/TableStyle'
@@ -24,6 +24,7 @@ function AdminList({ open }) {
   const [deleteAdmin, setDeleteAdmin] = useState(false)
   const [searchData, setSearchData] = useState([])
   const [isSearchData, setIsSearchData] = useState(false)
+
   const [direction, setDirection] = useState({
     id: '',
     fname: '',
@@ -114,10 +115,9 @@ function AdminList({ open }) {
     setDirection({
       [key]: direction[key] === 'asc' ? 'des' : 'asc',
     })
-    // console.log(direction[key])
   }
 
-  //=================================================================Return =========================================================//
+  //==========================Return ========================//
 
   return (
     <PageHeader

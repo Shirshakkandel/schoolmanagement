@@ -1,27 +1,27 @@
 import axios from 'axios'
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { useHistory, useParams } from 'react-router'
 import Loader from '../../components/UI/Loader'
 import Model from '../../components/UI/Model'
-import AddAdmin from './AddAdmin'
+import AddNewTeacher from './AddNewTeacher'
 
-function UpdateAdmin({ open }) {
+function UpdateTeacher({ open }) {
   const { id } = useParams()
   const history = useHistory()
   const [updateStatus, setUpdateStatus] = useState(false)
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
-  const [adminDetail, setAdmindetail] = useState({})
+  const [teacherDetail, setteacherdetail] = useState({})
 
   React.useEffect(() => {
-    async function fetchAdminDetail() {
+    async function fetchTeacherDetail() {
       setLoading(true)
       try {
-        const updateUrl = '/api/admin/viewAdminDetailById/' + id
+        const updateUrl = '/api/teacher/viewTeacherDetailById/' + id
 
         const { data } = await axios.get(updateUrl)
         if (data) {
-          setAdmindetail(data)
+          setteacherdetail(data)
           setLoading(false)
           setUpdateStatus(true)
         }
@@ -30,8 +30,9 @@ function UpdateAdmin({ open }) {
         setLoading(false)
       }
     }
-    fetchAdminDetail()
+    fetchTeacherDetail()
   }, [])
+
   return (
     <div>
       {loading ? (
@@ -45,14 +46,14 @@ function UpdateAdmin({ open }) {
           }}
         />
       ) : (
-        <AddAdmin
+        <AddNewTeacher
           open={open}
           updateStatus={updateStatus}
-          idData={adminDetail}
+          idData={teacherDetail}
         />
       )}
     </div>
   )
 }
 
-export default UpdateAdmin
+export default UpdateTeacher

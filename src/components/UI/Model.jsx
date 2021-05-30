@@ -1,11 +1,12 @@
 import React from 'react'
 
-export default function PopupMessage({
+export default function Model({
   message,
   handleClose,
   action,
   cancel,
   clear,
+  actionWord,
 }) {
   return (
     <div className="fixed left-0 top-0 min-h-screen w-screen  grid place-items-center z-40">
@@ -31,7 +32,7 @@ export default function PopupMessage({
               handleClose()
             }}
           >
-            OK
+            {actionWord || 'Ok'}
           </div>
 
           {cancel && (

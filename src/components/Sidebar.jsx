@@ -222,14 +222,14 @@ function Sidebar({ open, setOpen, width }) {
       subMenu: [
         {
           id: 1,
-          title: 'Exam Schedule',
-          to: '/examSchedule',
+          title: 'Add Exam ',
+          to: '/addExam',
           side: <MdKeyboardArrowRight />,
         },
         {
           id: 2,
-          title: 'Exam Grades',
-          to: '/examgrades',
+          title: 'Exam Detail',
+          to: '/allExam',
           side: <MdKeyboardArrowRight />,
         },
       ],
@@ -244,14 +244,14 @@ function Sidebar({ open, setOpen, width }) {
       subMenu: [
         {
           id: 1,
-          title: 'Student Attendance',
-          to: '/studentattendance',
+          title: 'All Attendence',
+          to: '/attendenceList',
           side: <MdKeyboardArrowRight />,
         },
         {
           id: 2,
-          title: 'Teacher attendace',
-          to: '/teacherattendance',
+          title: 'Add Attendence',
+          to: '/addAttendence',
           side: <MdKeyboardArrowRight />,
         },
       ],
@@ -268,6 +268,28 @@ function Sidebar({ open, setOpen, width }) {
       name: 'Notice',
       icon: <BiNotepad color="yellow" />,
       to: '/notice',
+    },
+
+    {
+      id: 15,
+      name: 'Routine',
+      icon: <CgClipboard color="yellow" />,
+      up: <IoIosArrowUp />,
+      down: <IoIosArrowDown />,
+      subMenu: [
+        {
+          id: 1,
+          title: 'Add Routine',
+          to: '/routine',
+          side: <MdKeyboardArrowRight />,
+        },
+        {
+          id: 2,
+          title: 'All Routine',
+          to: '/routineList',
+          side: <MdKeyboardArrowRight />,
+        },
+      ],
     },
   ]
 

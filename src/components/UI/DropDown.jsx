@@ -8,6 +8,7 @@ export default function DropDown({
   onChange,
   id,
   label,
+  subjectCode,
 }) {
   const [open, setOpen] = useState(false)
   const [query, setQuery] = useState('')
@@ -39,7 +40,7 @@ export default function DropDown({
     return ''
   }
   return (
-    <DropDownFilter>
+    <DropDownFilter className="bg-gray-300 ">
       <div className="dropdown">
         <div className="control">
           <div className="selected-value">
@@ -47,13 +48,13 @@ export default function DropDown({
               ref={ref}
               type="text"
               value={displayValue()}
+              className="bg-gray-300"
               placeholder={value ? value[label] : prompt}
               onChange={(e) => {
                 setQuery(e.target.value)
                 onChange(null)
               }}
             />
-            {/* {value ? value[label] : prompt} */}
           </div>
           <div className={`arrow ${open ? 'open' : null}`} ref={arrowRef} />
         </div>
@@ -62,13 +63,11 @@ export default function DropDown({
           {open &&
             filter(options).map((option, index) => (
               <div
-                // tabIndex="0"
-                // onBlur={() => setOpen(false)}
                 key={option[id]}
                 className={`option ${value === option ? 'selected' : null}`}
                 onClick={() => {
                   setQuery('')
-                  onChange(option[label], option[id])
+                  onChange(option[label], option[id], option[subjectCode])
                   setOpen(false)
                 }}
               >
@@ -86,7 +85,6 @@ const DropDownFilter = styled.div`
   margin-top: 8px;
   .dropdown {
     position: relative;
-    color: #333;
     cursor: default;
   }
 
@@ -112,8 +110,8 @@ const DropDownFilter = styled.div`
   .dropdown .selected-value input {
     line-height: 1.5;
     font-size: 1rem;
-    background-color: #e6dede;
-    border: 1px solid #ccc;
+    /* background-color: #e6dede; */
+    /* border: 1px solid #ccc; */
     border-radius: 2px;
     box-sizing: border-box;
     cursor: default;

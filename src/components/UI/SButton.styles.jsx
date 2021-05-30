@@ -32,7 +32,7 @@ export const SButton = styled.button`
   /* border: 1px solid black; */
 
   @media (max-width: 786px) {
-    width: ${(p) => (p.responsive ? `100%` : p.halfresponsive && '45%')};
+    width: ${(p) => (p.responsive ? `95%` : p.halfresponsive && '45%')};
     margin: 2%;
   }
 `

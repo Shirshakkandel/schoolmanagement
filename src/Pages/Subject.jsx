@@ -1,13 +1,14 @@
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import useForm from '../components/customeHook/useForm'
-import { SButton } from '../components/UI/Button.styles'
+import { SButton } from '../components/UI/SButton.styles'
 import DropDown from '../components/UI/DropDown'
 import { FormInput } from '../components/UI/Form/FormInput'
 import PopupMessage from '../components/UI/Model'
 import PageHeader from '../components/UI/PageHeader'
 import { TableStyle } from '../components/UI/TableStyle'
 import { useWindowSize } from '../globalState/globalState'
+import { useAllSubject } from '../globalState/AllSubject'
 
 export default function Subject({ open }) {
   const width = useWindowSize()
@@ -25,6 +26,7 @@ export default function Subject({ open }) {
     subjectCode: null,
     subjectName: '',
   })
+
   const dropDownData = [
     { id: 1, label: '00521' },
     { id: 2, label: '00522' },
@@ -151,6 +153,7 @@ export default function Subject({ open }) {
       setFetchError(`Canot fetch subject data of id ${id} `)
     }
   }
+  console.log(allSubjects)
 
   return (
     <PageHeader
@@ -175,9 +178,9 @@ export default function Subject({ open }) {
             />
             <label className="pl-2">Select Code *</label>
             <DropDown
-              options={dropDownData}
+              options={allSubjects}
               id="id"
-              label="label"
+              label="subjectCode"
               prompt="Select Code ..."
               value={values.subjectCode}
               onChange={(val) => setValues({ ...values, subjectCode: val })}
