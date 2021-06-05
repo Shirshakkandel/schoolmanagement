@@ -45,7 +45,7 @@ function SelectInput({ label, onChange, name, options, value, errors }) {
         onChange={onChange}
         name={name}
       >
-        {option &&
+        {options &&
           options.map(({ label, value }) => (
             <option key={label} className="outline-none" value={value}>
               {label}
