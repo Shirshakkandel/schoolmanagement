@@ -4,7 +4,7 @@ export const TableStyle = styled.table`
   border-spacing: 0;
   width: 100%;
   table-layout: ${(p) => (p.width <= 1024 ? 'fixed' : '')};
-  /* table-layout: 'fixed'; */
+
   border: ${(p) => (p.loading ? '' : '1px solid #644040')};
   margin-bottom: 12px;
 

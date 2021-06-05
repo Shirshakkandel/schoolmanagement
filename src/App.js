@@ -3,7 +3,7 @@ import './App.css';
 import Dashboard from './components/Dashboard';
 import Header from './components/Header';
 import Sidebar from './components/Sidebar';
-import {BrowserRouter,Route, Switch } from 'react-router-dom'
+import {Route, Switch, useLocation } from 'react-router-dom'
 import AddNewBook from './Pages/Library/AddNewBook';
 import BookList from './Pages/Library/BookList';
 import AllStudent from './Pages/Student/AllStudent';
@@ -34,10 +34,11 @@ import AllExam from './Pages/Exam/AllExam';
 import Routine from './Pages/Routine';
 import RoutineList from './Pages/RoutineList';
 import UpdatetRoutine from './Pages/UpdatetRoutine';
+import { AnimatePresence } from 'framer-motion';
 
 function App() {
   const [open, setOpen] = useState(false);
- 
+  const location = useLocation()
 
   //Automatic window size listner
   function useWindowSize() {
@@ -62,21 +63,17 @@ function App() {
 
   return (
     // Main App
-    <BrowserRouter>
+   
    
     <div className="bg-gray-50 ">
       {/* Header */}
       <Header open={open} setOpen={setOpen} width={useWindowSize()}/>
       {/* Sidebar */}
       <Sidebar open={open} setOpen={setOpen} width={useWindowSize()} />
-        {/* Main */}
-        
-       
-
-        <Switch>
-           
+      {/* Main */}
+        <AnimatePresence exitBeforeEnter>
+        <Switch location={location} key={location.pathname}>
           <Route path="/" exact>
-
             <Dashboard open={open} setOpen={setOpen} width={useWindowSize()} />
           </Route>
 
@@ -198,10 +195,11 @@ function App() {
             <UpdatetRoutine open={open}/>
           </Route>
           </Switch>
+           </AnimatePresence>
         </div>
      
     
-    </BrowserRouter>
+    
   );
 }
 export default App;

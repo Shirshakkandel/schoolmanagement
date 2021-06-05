@@ -45,11 +45,12 @@ function SelectInput({ label, onChange, name, options, value, errors }) {
         onChange={onChange}
         name={name}
       >
-        {options.map(({ label, value }) => (
-          <option key={label} className="outline-none" value={value}>
-            {label}
-          </option>
-        ))}
+        {option &&
+          options.map(({ label, value }) => (
+            <option key={label} className="outline-none" value={value}>
+              {label}
+            </option>
+          ))}
       </select>
 
       {errors && <p className=" text-red-400">{errors}</p>}

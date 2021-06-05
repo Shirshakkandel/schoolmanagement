@@ -32,26 +32,35 @@ function SidebarMenu({ id, name, icon, up, down, subMenu, to }) {
               <span>{icon}</span>
               <span>{name}</span>
             </div>
-            <div className={` transition-all duration-500 ease-in mr-1`}>
-              {dropdown ? up : down}
-            </div>
+            <AnimatePresence>
+              <motion.div
+                initial={{ opacity: 0, y: -5 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.3 }}
+                exit={{ opacity: 0, ease: 'easeOut', duration: 0.5 }}
+                className={` transition-all duration-500 ease-in mr-1`}
+              >
+                {dropdown ? up : down}
+              </motion.div>
+            </AnimatePresence>
           </div>
         </Link>
       )}
 
       {/* DropDown menu */}
-      <AnimatePresence>
-        <div
-          className={`${
-            dropdown ? 'h-full' : 'h-0'
-          } transition-all duration-500  ease-linear overflow-hidden`}
-        >
+
+      <div
+        className={`${
+          dropdown ? 'h-full' : 'h-0'
+        } transition-all duration-500  ease-linear overflow-hidden`}
+      >
+        <AnimatePresence>
           {subMenu && dropdown && (
             <motion.div
-              // initial={{ opacity: 0, y: -15 }}
-              // animate={{ opacity: 1, y: 0 }}
-              // transition={{ duration: 0.5 }}
-              // exit={{ opacity: 0, x: -5, duration: 0.5 }}
+              initial={{ opacity: 0, y: -5 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.35 }}
+              exit={{ opacity: 0, y: -5, duration: 0.35 }}
               className={`${
                 dropdown ? 'h-full' : 'h-0'
               } transition-all duration-500  ease-linear overflow-hidden dropdown bg-gray-800 `}
@@ -68,8 +77,8 @@ function SidebarMenu({ id, name, icon, up, down, subMenu, to }) {
               ))}
             </motion.div>
           )}
-        </div>
-      </AnimatePresence>
+        </AnimatePresence>
+      </div>
     </SidebarMenuStyle>
   )
 }
