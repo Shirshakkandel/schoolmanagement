@@ -3,15 +3,19 @@ import { BsFillBarChartFill } from 'react-icons/bs'
 import { FiUsers } from 'react-icons/fi'
 import { CgArrowsVAlt } from 'react-icons/cg'
 import { FaCartArrowDown, FaMoneyBillAlt } from 'react-icons/fa'
-import { CircularProgressbar } from 'react-circular-progressbar'
 
 import Chart from 'react-apexcharts'
 import styled from 'styled-components/macro'
 import { RiParentLine } from 'react-icons/ri'
 import { HiOutlineUserGroup } from 'react-icons/hi'
 import ReactApexChart from 'react-apexcharts'
+import axios from 'axios'
+import { useHistory } from 'react-router'
 
 function Dashboard({ width, open }) {
+  const [parentCount, setParentCount] = useState({})
+
+  const totalParentCount = parentCount.totalCount
   const [stackChart, setStackChart] = useState({
     options: {
       chart: {
@@ -28,6 +32,19 @@ function Dashboard({ width, open }) {
 
     labels: ['A', 'B', 'C', 'D', 'E'],
   })
+
+  useEffect(() => {
+    async function parentCount() {
+      try {
+        const { data } = await axios.get(
+          `/api/admindashboard/getTotalParentCount`
+        )
+        console.log(data)
+        setParentCount(data)
+      } catch (err) {}
+    }
+    parentCount()
+  }, [])
 
   //Expeses data
   const [expensesData, setExpensesData] = useState({
@@ -124,43 +141,6 @@ function Dashboard({ width, open }) {
       author: 'Shirshak kandel',
       ago: '5 min ago',
     },
-    // {
-    //   id: 5,
-    //   date: '23 04,2021',
-    //   notice: 'Greate school management planning',
-    //   author: 'Shirshak kandel',
-    //   ago: '5 min ago',
-    // },
-  ])
-  const [adminData, setAdminData] = useState([
-    {
-      id: 1,
-      icon: <RiParentLine size="40" color="#0e8859" background="red" />,
-      title: 'Students',
-      number: 15000,
-      bg: 'bg-green-200',
-    },
-    {
-      id: 2,
-      icon: <HiOutlineUserGroup size="40" color="#2a27b8" />,
-      title: 'Teacher',
-      number: 2250,
-      bg: 'bg-blue-200',
-    },
-    {
-      id: 3,
-      icon: <RiParentLine size="40" color="#dde011" />,
-      title: 'Parents',
-      number: 5690,
-      bg: 'bg-yellow-200',
-    },
-    {
-      id: 4,
-      icon: <FaMoneyBillAlt size="40" color="#a31616" />,
-      title: 'Earning',
-      number: 19300,
-      bg: 'bg-red-200',
-    },
   ])
 
   const percentageDate = [
@@ -201,9 +181,18 @@ function Dashboard({ width, open }) {
     },
   ]
 
-  const numb = React.useRef()
-
-  useEffect(() => {})
+  useEffect(() => {
+    async function parentCount() {
+      try {
+        const { data } = await axios.get(
+          `/api/admindashboard/getTotalParentCount`
+        )
+        console.log(data)
+        setParentCount(data)
+      } catch (err) {}
+    }
+    parentCount()
+  }, [])
 
   return (
     <MainDashboardStyle
@@ -222,25 +211,37 @@ function Dashboard({ width, open }) {
 
       {/* Card */}
       <div className="grid mb-5 grid-cols-1 sm:grid-cols-2 gap-4 lg:grid-cols-4 ">
-        {adminData.map(({ id, icon, number, title, bg }) => {
-          return (
-            <div
-              key={id}
-              className="revenue flex justify-between h-32 bg-gray-200  "
-            >
-              <div
-                className={`iconborder flex items-center text-lg p-5 ${bg} `}
-              >
-                <span>{icon}</span>
-              </div>
+        <Card
+          icon={<RiParentLine size="40" color="#0e8859" background="red" />}
+          title="Students"
+          number={totalParentCount}
+          bg="bg-green-200"
+          link="/studentslist"
+        />
 
-              <div className="flex flex-grow-1 flex-col justify-evenly items-end pr-3 ">
-                <p className="text-lg  ">{title}</p>
-                <p className="text-lg">{number}</p>
-              </div>
-            </div>
-          )
-        })}
+        <Card
+          icon={<RiParentLine size="40" color="#dde011" />}
+          title="Teacher"
+          number={totalParentCount}
+          bg="bg-blue-200"
+          link="/teacherlist"
+        />
+
+        <Card
+          icon={<HiOutlineUserGroup size="40" color="#2a27b8" />}
+          title="Parents"
+          number={totalParentCount}
+          bg="bg-yellow-200"
+          link="/parentList"
+        />
+
+        <Card
+          icon={<FaMoneyBillAlt size="40" color="#a31616" />}
+          title="Admins"
+          number={totalParentCount}
+          bg="bg-yellow-200"
+          link="/adminList"
+        />
       </div>
 
       <div className=" gridCustom grid grid-cols-1 lg:grid-cols-3 gap-4">
@@ -249,7 +250,7 @@ function Dashboard({ width, open }) {
           <h3 className="header font-bold">Earning</h3>
 
           <div className="earning-report">
-            <div className="item-content flex justify-between space-x-3 lg:flex-row  justify-start ">
+            <div className="item-content flex justify-between space-x-3 lg:flex-row  lg:justify-start ">
               <div className="single__item">
                 <h4>Total Collection</h4>
                 <span>Rs 75,000</span>
@@ -345,6 +346,25 @@ function Dashboard({ width, open }) {
 }
 
 export default Dashboard
+
+function Card({ bg, icon, title, number, link }) {
+  const history = useHistory()
+  return (
+    <div
+      className="revenue flex justify-between h-32 bg-gray-200 cursor-pointer  "
+      onClick={() => history.push(link)}
+    >
+      <div className={`iconborder flex items-center text-lg p-5 ${bg} `}>
+        <span>{icon}</span>
+      </div>
+
+      <div className="flex flex-grow-1 flex-col justify-evenly items-end pr-3 ">
+        <p className="text-lg  ">{title}</p>
+        <p className="text-lg">{number}</p>
+      </div>
+    </div>
+  )
+}
 
 const MainDashboardStyle = styled.div`
   transition: all 0.5s ease-in-out;

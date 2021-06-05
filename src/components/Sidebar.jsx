@@ -59,6 +59,29 @@ function Sidebar({ open, setOpen, width }) {
     },
 
     {
+      id: 12,
+      name: 'Admin',
+      icon: <FaUserGraduate color="yellow" />,
+      up: <IoIosArrowUp />,
+      down: <IoIosArrowDown />,
+      subMenu: [
+        {
+          id: 1,
+          title: 'All Admin',
+          to: '/adminList',
+          side: <MdKeyboardArrowRight />,
+        },
+
+        {
+          id: 2,
+          title: 'Add Admin ',
+          to: '/addAdmin',
+          side: <MdKeyboardArrowRight />,
+        },
+      ],
+    },
+
+    {
       id: 2,
       name: 'Students',
       icon: <FaUserGraduate color="yellow" />,
@@ -114,6 +137,12 @@ function Sidebar({ open, setOpen, width }) {
       ],
     },
     {
+      id: 11,
+      name: 'Subject',
+      icon: <BiNotepad color="yellow" />,
+      to: '/subject',
+    },
+    {
       id: 4,
       name: 'Parents',
       icon: <RiParentFill color="yellow" />,
@@ -122,8 +151,8 @@ function Sidebar({ open, setOpen, width }) {
       subMenu: [
         {
           id: 1,
-          title: 'Parents Details',
-          to: '/parentdetail',
+          title: 'All Parents',
+          to: '/allParents',
           side: <MdKeyboardArrowRight />,
         },
         {
@@ -193,14 +222,14 @@ function Sidebar({ open, setOpen, width }) {
       subMenu: [
         {
           id: 1,
-          title: 'Exam Schedule',
-          to: '/examSchedule',
+          title: 'Add Exam ',
+          to: '/addExam',
           side: <MdKeyboardArrowRight />,
         },
         {
           id: 2,
-          title: 'Exam Grades',
-          to: '/examgrades',
+          title: 'Exam Detail',
+          to: '/allExam',
           side: <MdKeyboardArrowRight />,
         },
       ],
@@ -215,14 +244,14 @@ function Sidebar({ open, setOpen, width }) {
       subMenu: [
         {
           id: 1,
-          title: 'Student Attendance',
-          to: '/studentattendance',
+          title: 'All Attendence',
+          to: '/attendenceList',
           side: <MdKeyboardArrowRight />,
         },
         {
           id: 2,
-          title: 'Teacher attendace',
-          to: '/teacherattendance',
+          title: 'Add Attendence',
+          to: '/addAttendence',
           side: <MdKeyboardArrowRight />,
         },
       ],
@@ -234,22 +263,50 @@ function Sidebar({ open, setOpen, width }) {
       icon: <BiBus color="yellow" />,
       to: '/transport',
     },
-    { id: 10, name: 'Notice', icon: <BiNotepad color="yellow" to="/notice" /> },
+    {
+      id: 10,
+      name: 'Notice',
+      icon: <BiNotepad color="yellow" />,
+      to: '/notice',
+    },
+
+    {
+      id: 15,
+      name: 'Routine',
+      icon: <CgClipboard color="yellow" />,
+      up: <IoIosArrowUp />,
+      down: <IoIosArrowDown />,
+      subMenu: [
+        {
+          id: 1,
+          title: 'Add Routine',
+          to: '/routine',
+          side: <MdKeyboardArrowRight />,
+        },
+        {
+          id: 2,
+          title: 'All Routine',
+          to: '/routineList',
+          side: <MdKeyboardArrowRight />,
+        },
+      ],
+    },
   ]
 
   return (
     // Cardshadow
     <Side
-      className={`shadow fixed z-50  left-0 top-0 h-full  w-${
+      className={`shadow fixed z-40  left-0 top-0 h-full  w-${
         open && width < 1024 ? 'full' : 0
       } `}
+      // onClick={() => setOpen(false)}
       onClick={exitDetailHander}
     >
       {/* Sidebar */}
       <SidebarStyled
         open={open}
         className={`fixed left-0 top-0 h-full  bg-gray-700 text-white  z-50
-            w-${open ? '6/12' : 0} opacity-${open ? 1 : 0}  } max-w-xs`}
+            w-${open ? '8/12' : 0} opacity-${open ? 1 : 0}  } max-w-xs`}
       >
         {/* SidebarHeader */}
         <div className=" bg-red-600 flex items-center space-x-2 p-4">
@@ -283,7 +340,7 @@ const SidebarStyled = styled.div`
   transition: all 0.5s ease-in-out;
   overflow-y: auto;
   background-color: '#042954';
-  z-index: 100;
+  /* z-index: 100; */
 
   /* Styling scrollbar */
   ::-webkit-scrollbar {
@@ -306,5 +363,5 @@ const SidebarStyled = styled.div`
 `
 
 const Side = styled.div`
-  z-index: 100;
+  /* z-index: 100; */
 `

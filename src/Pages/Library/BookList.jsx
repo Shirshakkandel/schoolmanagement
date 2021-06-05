@@ -1,12 +1,15 @@
-import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import styled from 'styled-components/macro'
+import json from '../../db.json'
 
 function BookList({ width, open, title, subTitle }) {
   const [bookData, setBookData] = useState([])
   const [q, setQ] = useState('')
   const [searchColumns, setSearchColumn] = useState(['BookName', 'Writer'])
   const columns = bookData[0] && Object.keys(bookData[0])
+  const data = json.books
+
+  const searchHandler = () => {}
   function search(rows) {
     const columns = rows[0] && Object.keys(rows[0])
     // return rows.filter((row) => row.BookName.toLowerCase().indexOf(q) > -1)
@@ -18,20 +21,20 @@ function BookList({ width, open, title, subTitle }) {
     )
   }
 
-  useEffect(() => {
-    // async function fetchBookData() {
-    //   let { data } = await axios.get('/books')
-    //   setBookData(data)
-    //   console.log(data)
-    // }
+  // useEffect(() => {
+  //   // async function fetchBookData() {
+  //   //   let { data } = await axios.get('/books')
+  //   //   setBookData(data)
+  //   //   console.log(data)
+  //   // }
 
-    async function fetchBookData() {
-      let response = await fetch('http://localhost:3000/books/')
-      let json = await response.json()
-      setBookData(json)
-    }
-    fetchBookData()
-  }, [])
+  //   async function fetchBookData() {
+  //     let response = await fetch('/books/')
+  //     let json = await response.json()
+  //     setBookData(json)
+  //   }
+  //   fetchBookData()
+  // }, [])
 
   return (
     <BookListStyle
@@ -46,29 +49,45 @@ function BookList({ width, open, title, subTitle }) {
         Home <span className="text-yellow-600"> &gt; {subTitle}</span>
       </div>
 
-      <div>
-        <input type="text" value={q} onChange={(e) => setQ(e.target.value)} />
-        {columns &&
-          columns.map((column) => (
-            <label>
-              <input
-                type="checkbox"
-                checked={searchColumns.includes(column)}
-                onChange={(e) => {
-                  const checked = searchColumns.includes(column)
-                  setSearchColumn((prev) =>
-                    checked
-                      ? prev.filter((sc) => sc !== column)
-                      : [...prev, column]
-                  )
-                }}
-              />
-              {column}
-            </label>
-          ))}
+ 
+
+      <div className="searchbox flex flex-col  p-4 md:flex-row  justify-evenly ">
+        <input
+          type="text"
+          placeholder="Search by Id"
+          className="h-12 w-full pl-3 bg-gray-100 text-black mb-4 md:mr-4 focus:outline-none"
+          onChange={(e) => {
+            setQ(e.target.value)
+            setSearchColumn(['id'])
+          }}
+        />
+        <input
+          className="h-12 w-full pl-3 bg-gray-100 text-black  mb-4 md:mr-4 focus:outline-none "
+          type="text"
+          placeholder="Search By Name"
+          onChange={(e) => {
+            setQ(e.target.value)
+            setSearchColumn(['BookName', 'Writer'])
+          }}
+        />
+        <input
+          type="text"
+          placeholder="Search by Class"
+          className="h-12 w-full pl-3 bg-gray-100 text-black  mb-4 md:mr-4 focus:ouline-none "
+          onchange={(e) => {
+            setQ(e.target.value)
+            setSearchColumn(['Class'])
+          }}
+        />
+
+        <input
+          type="submit"
+          onClick={searchHandler()}
+          className="h-12 w-full pl-3 bg-yellow-400 text-black  mb-4 md:mr-4 "
+        />
       </div>
       <div className="overflow-x-auto mb-6">
-        <Table data={search(bookData)} />
+        <Table data={search(bookData)} width={width} />
       </div>
       <div className="overflow-x-auto">
         <table className=" ">
@@ -85,7 +104,7 @@ function BookList({ width, open, title, subTitle }) {
           </thead>
 
           <tbody>
-            {bookData.map(
+            {data.map(
               ({
                 id,
                 BookName,
@@ -115,10 +134,10 @@ function BookList({ width, open, title, subTitle }) {
 
 export default BookList
 
-const Table = ({ data }) => {
+const Table = ({ data, width }) => {
   const columns = data[0] && Object.keys(data[0])
   return (
-    <table>
+    <TableStyle cellPadding={0} cellSpacing={0} width={width}>
       <thead>
         <tr>
           {data[0] &&
@@ -134,9 +153,34 @@ const Table = ({ data }) => {
           </tr>
         ))}
       </tbody>
-    </table>
+    </TableStyle>
   )
 }
+
+const TableStyle = styled.table`
+  table {
+    /* border-collapse: collapse; */
+    border-spacing: 0;
+    width: 100%;
+    table-layout: ${(p) => (p.width <= 786 ? 'fixed' : '')};
+    border: 1px solid #ddd;
+
+    th,
+    td {
+      text-align: left;
+      padding: ${(p) => (p.width <= 786 ? '10px' : '8px')};
+      width: ${(p) => (p.width <= 786 ? '150px' : '')};
+    }
+
+    tr:first {
+      width: '50px';
+    }
+
+    tr:nth-child(even) {
+      background-color: #e9dddd;
+    }
+  }
+`
 
 const BookListStyle = styled.div`
   overflow-x: hidden;

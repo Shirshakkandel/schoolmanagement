@@ -1,0 +1,1 @@
+export const baseUrl = "http://dbschoolmanagement-env.eba-k8dwg2cj.us-east-2.elasticbeanstalk.com/";
